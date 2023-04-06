@@ -31,7 +31,7 @@ export const createRestaurant = async (req, res, next) => {
       return next(createError(400, errors.array()));
     }
   } catch (err) {
-    return next(createError(400, ""));
+    return next(err);
   }
   const newRestaurant = new Restaurant(req.body);
   try {
