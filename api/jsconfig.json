@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
-    "module": "ES6",
+    "module": "CommonJS",
     "jsx": "preserve",
     "checkJs": true
   },
-  "exclude": [
-    "node_modules",
-    "**/node_modules/*"
-  ]
+  "exclude": ["node_modules", "**/node_modules/*"]
 }

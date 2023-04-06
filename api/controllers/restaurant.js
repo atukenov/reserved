@@ -15,7 +15,7 @@ export const createRestaurant = async (req, res, next) => {
     await check("contactDetails.phoneNumber")
       .notEmpty()
       .withMessage("Phone Number is required")
-      .minLength(12)
+      .isLength({ min: 12, max: 12 })
       .withMessage("Must by length of 12")
       .run(req);
     await check("contactDetails.email")
