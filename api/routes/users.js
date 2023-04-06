@@ -4,9 +4,11 @@ import {
   deleteUser,
   getUser,
   getUsers,
+  login,
+  register,
   updateUser,
 } from "../controllers/user.js";
-import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
+import { verifyAdmin, verifyUser } from "../utils/verifyToken.js";
 const router = express.Router();
 
 // router.get("/checkauthentication", verifyToken, (req, res, next) => {
@@ -19,6 +21,10 @@ const router = express.Router();
 //   res.send("Hello user you are logged in and you are admin.");
 // });
 
+//CREATE
+router.post("/register", register);
+//LOGIN
+router.post("/login", login);
 //UPDATE
 router.put("/:id", verifyUser, updateUser);
 //DELETE

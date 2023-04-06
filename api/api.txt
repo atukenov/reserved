@@ -1,0 +1,48 @@
+User API:
+-Create a new user
+-Retrieve user information
+-Update user information
+-Delete a user
+Retrieve reservation history for a user
+-Authenticate user (login, logout)
+
+Reservation API:
+Create a new reservation
+Retrieve reservation information
+Update reservation information
+Cancel a reservation
+Retrieve reservations for a specific restaurant
+Retrieve reservations for a specific user
+Retrieve reservations for a specific date or time
+Retrieve available tables for a specific date, time, and party size
+Confirm a reservation
+Send confirmation notifications to users
+
+Restaurant API:
+Create a new restaurant
+Retrieve restaurant information
+Update restaurant information
+Delete a restaurant
+Retrieve menu items for a specific restaurant
+Add a new menu item for a specific restaurant
+Update menu item information for a specific restaurant
+Delete a menu item for a specific restaurant
+Retrieve reviews for a specific restaurant
+Add a new review for a specific restaurant
+Update review information for a specific restaurant
+Delete a review for a specific restaurant
+
+Table API:
+Create a new table for a specific restaurant
+Retrieve table information
+Update table information
+Delete a table
+Retrieve available tables for a specific restaurant, date, time, and party size
+Update table availability status (e.g., mark as reserved, available)
+
+Confirmation API:
+Create a confirmation for a reservation
+Retrieve confirmation information
+Update confirmation status
+Delete a confirmation
+Send confirmation notifications to users

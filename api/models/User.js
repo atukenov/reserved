@@ -21,6 +21,16 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+    reservationHistory: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Reservation",
+      },
+    ],
   },
   { timestamps: true }
 );
