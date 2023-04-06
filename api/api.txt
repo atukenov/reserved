@@ -19,10 +19,11 @@ Confirm a reservation
 Send confirmation notifications to users
 
 Restaurant API:
-Create a new restaurant
-Retrieve restaurant information
-Update restaurant information
-Delete a restaurant
+-Create a new restaurant
+-Retrieve restaurant information
+-Retrieve all restaurant information
+-Update restaurant information
+-Delete a restaurant
 Retrieve menu items for a specific restaurant
 Add a new menu item for a specific restaurant
 Update menu item information for a specific restaurant

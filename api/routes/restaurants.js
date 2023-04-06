@@ -1,5 +1,5 @@
 import express from "express";
-import Restaurant from "../models/Restaurant.js";
+
 import {
   createRestaurant,
   deleteRestaurant,
@@ -7,15 +7,15 @@ import {
   getRestaurants,
   updateRestaurant,
 } from "../controllers/restaurant.js";
-import { verifyAdmin } from "../utils/verifyToken.js";
+import { verifyGod } from "../utils/verifyToken.js";
 const router = express.Router();
 
 //CREATE
-router.post("/", verifyAdmin, createRestaurant);
+router.post("/", verifyGod, createRestaurant);
 //UPDATE
-router.put("/:id", verifyAdmin, updateRestaurant);
+router.put("/:id", verifyGod, updateRestaurant);
 //DELETE
-router.delete("/:id", verifyAdmin, deleteRestaurant);
+router.delete("/:id", verifyGod, deleteRestaurant);
 //GET
 router.get("/:id", getRestaurant);
 //GET ALL

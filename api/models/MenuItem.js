@@ -24,6 +24,10 @@ const MenuItemSchema = new mongoose.Schema(
       min: 3,
       max: 10,
     },
+    image: {
+      url: { type: String, required: true },
+      alt: { type: String },
+    },
   },
   { timestamps: true }
 );

@@ -33,6 +33,7 @@ export const register = async (req, res, next) => {
       username: req.body.username,
       email: req.body.email,
       password: hash,
+      phoneNumber: req.body.phoneNumber,
     });
     await newUser.save();
     res.status(201).json("User has been created!");
@@ -69,7 +70,7 @@ export const login = async (req, res, next) => {
       return next(createError(400, "Wrong Password or Username"));
 
     const token = jwt.sign(
-      { id: user._id, isAdmin: user.isAdmin },
+      { id: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "12h" }
     );

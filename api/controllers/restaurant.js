@@ -24,7 +24,7 @@ export const createRestaurant = async (req, res, next) => {
       .isEmail()
       .withMessage("Must be email format")
       .run(req);
-    await check("type").notEmpty().withMessage("Type is required");
+    await check("type").notEmpty().withMessage("Type is required").run(req);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -57,7 +57,7 @@ export const updateRestaurant = async (req, res, next) => {
   }
 };
 export const deleteRestaurant = async (req, res, next) => {
-  const restaurantId = req.params.hotelid;
+  const restaurantId = req.params.id;
   try {
     await Restaurant.findByIdAndDelete(restaurantId);
 

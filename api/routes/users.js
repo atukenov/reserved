@@ -8,7 +8,7 @@ import {
   register,
   updateUser,
 } from "../controllers/user.js";
-import { verifyAdmin, verifyUser } from "../utils/verifyToken.js";
+import { verifyAdmin, verifyGod, verifyUser } from "../utils/verifyToken.js";
 const router = express.Router();
 
 // router.get("/checkauthentication", verifyToken, (req, res, next) => {
@@ -32,6 +32,6 @@ router.delete("/:id", verifyUser, deleteUser);
 //GET
 router.get("/:id", verifyUser, getUser);
 //GET ALL
-router.get("/", verifyAdmin, getUsers);
+router.get("/", verifyGod, getUsers);
 
 export default router;

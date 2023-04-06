@@ -32,7 +32,16 @@ const RestaurantSchema = new mongoose.Schema({
       ref: "MenuItem",
     },
   ],
-  tableCapacity: [Number],
+  tableCapacity: {
+    type: Number,
+    required: true,
+  },
+  images: [
+    {
+      url: { type: String, required: true },
+      alt: { type: String },
+    },
+  ],
 });
 
 export default mongoose.model("Restaurant", RestaurantSchema);

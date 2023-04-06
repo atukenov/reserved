@@ -3,8 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import usersRoute from "./routes/users.js";
-import hotelsRoute from "./routes/hotels.js";
-import roomsRoute from "./routes/rooms.js";
+import tablesRoute from "./routes/tables.js";
 import restaurantsRoute from "./routes/restaurants.js";
 
 const app = express();
@@ -23,15 +22,14 @@ const connect = async () => {
 app.use(cookieParser());
 app.use(express.json());
 
-app.use("/api/rooms", roomsRoute);
-app.use("/api/restaurant", restaurantsRoute);
-app.use("/api/hotels", hotelsRoute);
+app.use("/api/tables", tablesRoute);
+app.use("/api/restaurants", restaurantsRoute);
 app.use("/api/users", usersRoute);
 
 app.use((err, req, res, next) => {
   const errStatus = err.status || 500;
   const errMessage = err.message || "Something went wrong!";
-  return res.status(err.status).json({
+  return res.status(errStatus).json({
     success: false,
     status: errStatus,
     message: errMessage,

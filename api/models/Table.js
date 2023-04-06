@@ -16,7 +16,11 @@ const TableSchema = new mongoose.Schema({
   },
   availabilityStatus: {
     type: String,
-    required: true,
+    enum: ["reserved", "available"],
+    default: "available",
+  },
+  location: {
+    type: String,
   },
 });
 

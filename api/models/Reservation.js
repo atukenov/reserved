@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const ReservationSchema = new mongoose.Schema(
   {
     userId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     restaurantId: {
@@ -25,9 +26,13 @@ const ReservationSchema = new mongoose.Schema(
       default: 1,
       min: 1,
     },
+    specialRequest: {
+      type: String,
+    },
     status: {
       type: String,
-      required: true,
+      enum: ["confirmed", "pending", "cancelled"],
+      default: "pending",
     },
   },
   { timestamps: true }

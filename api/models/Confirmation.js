@@ -13,6 +13,7 @@ const ConfirmationSchema = new mongoose.Schema(
     },
     status: {
       type: String,
+      enum: ["confirmed", "pending", "cancelled"],
       required: true,
     },
   },

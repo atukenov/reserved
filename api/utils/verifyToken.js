@@ -12,16 +12,20 @@ export const verifyToken = (req, res, next) => {
 };
 
 export const verifyUser = (req, res, next) => {
-  // @ts-ignore
-  verifyToken(req, res, next, () => {
-    if (req.user.id === req.params.id || req.user.isAdmin) next();
+  verifyToken(req, res, () => {
+    if (req.user.id === req.params.id || req.user.role === "god") next();
     else next(createError(403, "You are not authorized!"));
   });
 };
 export const verifyAdmin = (req, res, next) => {
-  // @ts-ignore
-  verifyToken(req, res, next, () => {
-    if (req.user.isAdmin) next();
+  verifyToken(req, res, () => {
+    if (req.user.role === "admin") next();
     else next(createError(403, "You are not authorized!"));
+  });
+};
+export const verifyGod = (req, res, next) => {
+  verifyToken(req, res, () => {
+    if (req.user.role === "god") next();
+    else next(createError(403, "You are not GOD!"));
   });
 };
