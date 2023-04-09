@@ -1,41 +1,20 @@
 .header {
-  background-color: #003580;
+  background-color: #098000;
   color: white;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   position: relative;
 }
 
 .headerContainer {
   width: 100%;
   max-width: 1024px;
-  margin: 20px 0px 100px 0px;
-}
-
-.headerContainer.listMode {
-  margin: 20px 0px 0px 0px;
-}
-
-.headerList {
+  margin: 20px 0px 30px 0px;
+  height: 200px;
   display: flex;
-  gap: 40px;
-  margin-bottom: 50px;
-}
-
-.headerListItem {
-  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
-  gap: 10px;
-}
-
-.headerListItem.active {
-  border: 1px solid white;
-  padding: 10px;
-  border-radius: 20px;
-}
-
-.headerDesc {
-  margin: 20px 0px;
 }
 
 .headerBtn {
@@ -43,23 +22,26 @@
   color: white;
   font-weight: 500;
   border: none;
-  padding: 10px;
+  padding: 10px 40px;
   cursor: pointer;
+  height: 50px;
+  border-radius: 5px;
 }
 
 .headerSearch {
-  height: 30px;
+  height: 50px;
   background-color: white;
-  border: 3px solid #febb02;
+  box-shadow: 0px 5px 5px 0 black;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 10px 0px;
+  justify-content: space-between;
+  padding: 10px 0 10px 10px;
   border-radius: 5px;
   position: absolute;
-  bottom: -25px;
-  width: 100%;
+  margin: 0 20px;
+  bottom: -30px;
   max-width: 1024px;
+  width: 100%;
 }
 
 .headerIcon {
@@ -125,4 +107,25 @@
 
 .optionCounterButton:disabled {
   cursor: not-allowed;
+}
+
+@media screen and (max-width: 480px) {
+  .options {
+    left: 150px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .headerBtn {
+    padding: 10px 10px;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .headerContainer {
+    margin: 20px 20px 30px 20px;
+  }
+  .headerSearch {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 1200px) {
 }
