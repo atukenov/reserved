@@ -46,53 +46,56 @@ const Header = () => {
           Time to eat? <br />
           Book table for your greate breakfast, lunch or dinner!
         </h1>
-        <div className="headerSearch">
-          <div className="headerSearchItem">
-            <FontAwesomeIcon icon={faBowlFood} className="headerIcon" />
-            <input
-              type="text"
-              placeholder="Where are you going?"
-              className="headerSearchInput"
-              onChange={(e) => setDestination(e.target.value)}
-            />
-          </div>
-          <div className="headerSearchItem">
-            <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-            <span
-              onClick={() => setOpenOptions(!openOptions)}
-              className="headerSearchText"
-            >{`${options.person} person`}</span>
-            {openOptions && (
-              <div className="options">
-                <div className="optionItem">
-                  <span className="optionText">Person</span>
-                  <div className="optionCounter">
-                    <button
-                      disabled={options.person <= 1}
-                      className="optionCounterButton"
-                      onClick={() => handleOption("person", "d")}
-                    >
-                      -
-                    </button>
-                    <span className="optionCounterNumber">
-                      {options.person}
-                    </span>
-                    <button
-                      className="optionCounterButton"
-                      onClick={() => handleOption("person", "i")}
-                    >
-                      +
-                    </button>
+        <div className="searchContainer">
+          <div className="headerSearch">
+            <div className="headerSearchItem">
+              <FontAwesomeIcon icon={faBowlFood} className="headerIcon" />
+              <input
+                type="text"
+                placeholder="Where are you going?"
+                className="headerSearchInput"
+                onChange={(e) => setDestination(e.target.value)}
+              />
+            </div>
+            <div className="headerSearchItem">
+              <div
+                className="headerSearchItem"
+                onClick={() => setOpenOptions(!openOptions)}
+              >
+                <FontAwesomeIcon icon={faPerson} className="headerIcon" />
+                <span className="headerSearchText">{`${options.person} person`}</span>
+              </div>
+              {openOptions && (
+                <div className="options">
+                  <div className="optionItem">
+                    <span className="optionText">Person</span>
+                    <div className="optionCounter">
+                      <button
+                        disabled={options.person <= 1}
+                        className="optionCounterButton"
+                        onClick={() => handleOption("person", "d")}
+                      >
+                        -
+                      </button>
+                      <span className="optionCounterNumber">
+                        {options.person}
+                      </span>
+                      <button
+                        className="optionCounterButton"
+                        onClick={() => handleOption("person", "i")}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-          <div className="headerSearchItem">
-            <button className="headerBtn" onClick={handleSearch}>
-              Search
-            </button>
-          </div>
+
+          <button className="headerBtn" onClick={handleSearch}>
+            Search
+          </button>
         </div>
       </div>
     </div>
