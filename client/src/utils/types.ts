@@ -12,6 +12,16 @@ export interface alertProps {
   msg: string | null;
 }
 
+export const device = {
+  mobile: `only screen and (min-width: 600px)`,
+  tablet: `only screen and (min-width: 768px)`,
+  laptop: `only screen and (min-width: 992px)`,
+  desktop: `only screen and (min-width: 1200px)`,
+};
+
+//TODO update types.
+
+// Old props
 export interface userProps {
   _id: string;
   name: string;

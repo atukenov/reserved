@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Router from "./router";
-import Alert from "./common/Alert";
+import Alert from "./components/Alert";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { Styles } from "./styles";
 import { loadUser, authSelector } from "./slices/authSlice";

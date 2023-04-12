@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { device } from "./utils/types";
 
 export const Styles = createGlobalStyle`
 
@@ -78,17 +79,6 @@ export const Styles = createGlobalStyle`
       background: rgba(0,0,0,.9);
     }
 
-    .BODY {
-      background-color: #25272a;
-      -webkit-transition: background-color 150ms ease-out !important;
-      transition: background-color 150ms ease-out !important;
-    }
-
-
-    .BODY.day-background {
-      background: #ffdb88;
-    }
-
     a:hover {
         color: #18216d;
     }
@@ -108,16 +98,17 @@ export const Styles = createGlobalStyle`
     h1 {
         font-family: 'NotoSans Bold', serif;
         color: #1d1e18;
-        font-size: 56px;
+        font-size: 32px;
         line-height: 1.18;
         margin: 0;
+        font-weight: 600;
 
-        @media only screen and (max-width: 890px) {
-          font-size: 47px;
+        @media ${device.tablet} {
+          font-size: 38px;
         }
       
-        @media only screen and (max-width: 414px) {
-          font-size: 32px;
+        @media ${device.laptop} {
+          font-size: 42px;
         }
     }
 
@@ -207,10 +198,6 @@ export const Styles = createGlobalStyle`
         line-height: 1.41;
     }
 
-    h1 {
-        font-weight: 600;
-    }
-
     a {
         text-decoration: none;
         outline: none;
@@ -232,27 +219,4 @@ export const Styles = createGlobalStyle`
     *:focus {
         outline: none;
     }
-
-    .about-block-image svg {
-        text-align: center;
-    }
-
-    .ant-drawer-body {
-        display: flex;
-        flex-direction: column;
-        text-align: left;
-        padding-top: 1.5rem;
-    }
-
-    .ant-drawer-content-wrapper {
-        width: 300px !important;
-    }
-
-    .center {
-        align-items: center;
-        text-align: center;
-        vertical-align: middle;
-        justify-content: center;
-    }
-
 `;

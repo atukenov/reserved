@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { RootState } from "../app/store";
-import { AuthProps } from "../types";
+import { AuthProps } from "../utils/types";
 import { setAlert } from "./alertSlice";
 import socket from "../utils/socket";
 
