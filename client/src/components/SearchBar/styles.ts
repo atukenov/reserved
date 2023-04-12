@@ -60,6 +60,7 @@ export const Counter = styled("div")`
   right: 20%;
   max-width: 150px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
   &.closed {
     display: none;
   }

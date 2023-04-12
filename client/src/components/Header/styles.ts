@@ -93,7 +93,7 @@ export const Intro = styled("div")`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: start;
+  align-items: center;
   width: 100vw;
   height: 300px;
   padding: 80px 20px;

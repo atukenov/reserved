@@ -14,7 +14,12 @@ const RestaurantDetails = () => {
   return (
     <Card>
       <CardImg>
-        <div>img</div>
+        <img
+          src="https://source.unsplash.com/random/250x125?fruit"
+          alt=""
+          width="100%"
+          height="100%"
+        />
         <Ratings>4.6</Ratings>
       </CardImg>
       <CardBody>
