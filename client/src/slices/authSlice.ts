@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { RootState } from "../app/store";
-import { AuthProps } from "../common/types";
+import { AuthProps } from "../types";
 import { setAlert } from "./alertSlice";
-import socket from "../common/utils/socket";
+import socket from "../utils/socket";
 
 const initialState: AuthProps = {
   token: localStorage.getItem("token"),
@@ -25,19 +25,21 @@ export const loadUser = createAsyncThunk(
   "auth/loadUser",
   async (arg, thunkAPI) => {
     const token = localStorage.token;
-    if (token) config.headers["x-auth-token"] = token;
-    try {
-      const res = await axios.get("/api/auth", config);
-      let data = await res.data;
-      if (res.status === 200) {
-        return { ...data };
+    if (token) {
+      config.headers["x-auth-token"] = token;
+      try {
+        const res = await axios.get("/api/auth", config);
+        let data = await res.data;
+        if (res.status === 200) {
+          return { ...data };
+        }
+      } catch (error) {
+        const e: any = error;
+        thunkAPI.dispatch(
+          setAlert({ alertType: "error", msg: e.response.data.msg })
+        );
+        return thunkAPI.rejectWithValue(e.response.data);
       }
-    } catch (error) {
-      const e: any = error;
-      thunkAPI.dispatch(
-        setAlert({ alertType: "error", msg: e.response.data.msg })
-      );
-      return thunkAPI.rejectWithValue(e.response.data);
     }
   }
 );

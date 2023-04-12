@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { RootState } from "../app/store";
-import { ChatProps } from "../common/types";
-import socket from "../common/utils/socket";
+import { ChatProps } from "../types";
+import socket from "../utils/socket";
 import { setAlert } from "./alertSlice";
 
 const initialState: ChatProps = {

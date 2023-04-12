@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../app/store";
-import { alertProps } from "../common/types";
+import { alertProps } from "../types";
 
 const initialState: alertProps = {
   alertType: "idle",

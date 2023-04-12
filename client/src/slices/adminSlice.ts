@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { RootState } from "../app/store";
-import { UserProps } from "../common/types";
+import { UserProps } from "../types";
 import { setAlert } from "./alertSlice";
 
 const initialState: UserProps = {

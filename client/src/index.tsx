@@ -1,13 +1,12 @@
-import { BrowserRouter } from "react-router-dom";
+import React from "react";
 import { I18nextProvider } from "react-i18next";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
-import "antd/dist/antd.min.css";
 import { createRoot } from "react-dom/client";
-
+import { BrowserRouter } from "react-router-dom";
 import i18n from "./translation";
 import App from "./App";
-import React from "react";
+import "antd/dist/antd.min.css";
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
