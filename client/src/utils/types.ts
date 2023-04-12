@@ -148,12 +148,6 @@ export interface ShadowProps {
   children: React.ReactNode;
 }
 
-export interface SvgIconProps {
-  src: string;
-  width: string;
-  height: string;
-}
-
 export interface InputProps {
   name?: string;
   label?: string;

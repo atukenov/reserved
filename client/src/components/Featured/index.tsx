@@ -6,7 +6,7 @@ const Featured = () => {
   return (
     <Container>
       <Wrapper>
-        <SvgIcon src="connected-world.svg" width="100%" height="250px" />
+        <SvgIcon width="100%" height="250px" shadow={true} />
         <Title>Try foods around the world.</Title>
       </Wrapper>
     </Container>

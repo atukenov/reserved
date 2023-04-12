@@ -49,7 +49,7 @@ const Header = () => {
           <li>Need Reservation?</li>
           <li>Learn More</li>
         </ul>
-        <p>(C) Amakenzi</p>
+        <p>2023 ©️ Amakenzi 🤍</p>
       </DropDown>
 
       <Intro>

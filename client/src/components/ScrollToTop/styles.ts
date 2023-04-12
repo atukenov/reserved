@@ -7,7 +7,7 @@ export const ScrollUpContainer = styled("div")<any>`
   bottom: 30px;
   z-index: 10;
   cursor: pointer;
-  background: #1d1e18;
+  background: darkgreen;
   text-align: center;
   align-items: center;
   border-radius: 4px;
@@ -19,7 +19,7 @@ export const ScrollUpContainer = styled("div")<any>`
   &:hover,
   &:active,
   &:focus {
-    background: #bdd5ae;
+    background: orange;
   }
 
   @media screen and (max-width: 1240px) {

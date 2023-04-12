@@ -70,21 +70,27 @@ export const DropDown = styled("div")`
   right: 0;
   width: 250px;
   z-index: 99;
-  background-color: #79f37c;
+  background-color: orange;
+  color: white;
   &.open {
     display: block;
   }
   p {
-    margin-top: 100px;
+    margin-top: 350px;
     margin-bottom: 0;
     font-size: 14px;
     text-align: center;
+    color: white;
   }
   li {
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid green;
     &:hover {
       color: red;
     }
+  }
+
+  @media ${device.tablet} {
+    display: none !important;
   }
 `;
 
@@ -96,16 +102,21 @@ export const Intro = styled("div")`
   align-items: center;
   width: 100vw;
   height: 300px;
-  padding: 80px 20px;
+  padding: 100px 20px 0 20px;
   background-color: darkgreen;
+  background-image: url("https://source.unsplash.com/random/?city");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0px 7px 30px darkgreen;
   @media ${device.tablet} {
-    padding: 80px 40px;
+    padding: 100px 40px 0 40px;
   }
   @media ${device.laptop} {
-    padding: 80px 80px;
+    padding: 100px 80px 0 80px;
   }
   @media ${device.desktop} {
-    padding: 80px 150px;
+    padding: 100px 150px 0 150px;
   }
 `;
 
@@ -114,4 +125,8 @@ export const IntroTitle = styled("h1")`
   width: 100%;
   font-size: 32px;
   color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  @media ${device.desktop} {
+    padding-left: 70px;
+  }
 `;

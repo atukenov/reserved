@@ -26,4 +26,5 @@ export const Title = styled.h1`
   position: absolute;
   bottom: 20px;
   padding-left: 20px;
+  color: white;
 `;

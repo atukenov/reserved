@@ -1,11 +1,11 @@
 import React from "react";
 import RestaurantDetails from "../RestaurantDetails";
-import { Container, List, ListItem } from "./styles";
+import { Container, List, ListItem, Title } from "./styles";
 
 const Popular = () => {
   return (
     <Container>
-      <h4>Popular restaurants</h4>
+      <Title>Popular restaurants</Title>
       <List>
         <ListItem>
           <RestaurantDetails />

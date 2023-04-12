@@ -5,16 +5,20 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: auto;
-  padding: 0 20px;
+  padding: 20px 20px 0 20px;
   @media ${device.tablet} {
-    padding: 0 50px;
+    padding: 20px 50px 0 50px;
   }
   @media ${device.laptop} {
-    padding: 0 80px;
+    padding: 20px 80px 0 80px;
   }
   @media ${device.desktop} {
-    padding: 0 120px;
+    padding: 20px 120px 0 120px;
   }
+`;
+
+export const Title = styled.h1`
+  font-size: 26px;
 `;
 
 export const List = styled.div`
