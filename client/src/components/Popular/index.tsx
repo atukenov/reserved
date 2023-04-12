@@ -13,6 +13,12 @@ const Popular = () => {
         <ListItem>
           <RestaurantDetails />
         </ListItem>
+        <ListItem>
+          <RestaurantDetails />
+        </ListItem>
+        <ListItem>
+          <RestaurantDetails />
+        </ListItem>
       </List>
     </Container>
   );

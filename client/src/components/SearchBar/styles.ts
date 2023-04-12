@@ -91,6 +91,10 @@ export const Button = styled("button")`
   font-weight: 600;
   /* box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); */
   border-radius: 0 15px 15px 0;
+  cursor: pointer;
+  &:hover {
+    background-color: green;
+  }
 `;
 
 export const Icon = styled("div")`

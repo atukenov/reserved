@@ -1,23 +1,62 @@
 import styled from "styled-components";
 
 export const Card = styled.div`
-  height: 250px;
-  width: 200px;
-  background-color: red;
-  overflow: hidden;
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: rgba(80, 80, 80, 0.25) 0 0 4px;
 `;
-export const CardImg = styled.div`
-  width: 250px;
-  height: 125px;
 
-  &img {
+export const CardImg = styled.div`
+  position: relative;
+  img {
     object-fit: cover;
-    object-position: 50% 50%;
+    width: 100%;
+    height: 125px;
   }
 `;
-export const CardBody = styled.div``;
-export const Ratings = styled.div``;
-export const Title = styled.h1``;
-export const Location = styled.p``;
-export const Info = styled.div``;
-export const Button = styled.button``;
+
+export const Ratings = styled.div`
+  position: absolute;
+  display: flex;
+  bottom: 14px;
+  left: 17px;
+  background-color: white;
+  color: black;
+  padding: 0 7px;
+  text-align: center;
+  border-radius: 10px;
+`;
+
+export const CardBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 15px;
+`;
+export const Title = styled.h1`
+  font-size: 20px;
+  margin: 0 0 5px 0;
+`;
+export const Location = styled.p`
+  font-size: 18px;
+  padding: 0;
+  margin: 0 0 5px 0;
+`;
+export const Info = styled.p`
+  font-size: 18px;
+  padding: 0;
+  margin: 0 0 5px 0;
+`;
+export const Button = styled.button`
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: green;
+  }
+`;

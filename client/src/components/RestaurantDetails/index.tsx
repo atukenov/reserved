@@ -14,16 +14,11 @@ const RestaurantDetails = () => {
   return (
     <Card>
       <CardImg>
-        <img
-          src="https://source.unsplash.com/random/250x125?fruit"
-          alt=""
-          width="100%"
-          height="100%"
-        />
-        <Ratings>4.6</Ratings>
+        <img src="https://source.unsplash.com/random/250x200?fruit" alt="" />
+        <Ratings>* 4.6</Ratings>
       </CardImg>
       <CardBody>
-        <Title>fsadfas</Title>
+        <Title>Atyrau kala is the best one.</Title>
         <Location>fadsfsad</Location>
         <Info>fdsafasd</Info>
         <Button>Reserve Now</Button>

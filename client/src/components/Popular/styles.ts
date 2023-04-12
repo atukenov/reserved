@@ -19,9 +19,18 @@ export const Container = styled.div`
 
 export const List = styled.div`
   display: flex;
+  width: 100%;
   max-width: 1200px;
-  background-color: gray;
+  /* border-radius: 10px; */
+  /* background-color: gray; */
+  /* box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3); */
+  align-items: center;
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 export const ListItem = styled.div`
-  margin: 0 5px;
+  width: 240px;
+  padding: 5px 5px;
 `;
