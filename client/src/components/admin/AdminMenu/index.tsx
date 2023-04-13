@@ -30,7 +30,7 @@ const items: MenuProps["items"] = [
 ];
 
 const AdminMenu = () => {
-  const [current, setCurrent] = useState("crud");
+  const [current, setCurrent] = useState("");
 
   const onClick: MenuProps["onClick"] = (e) => {
     setCurrent(e.key);

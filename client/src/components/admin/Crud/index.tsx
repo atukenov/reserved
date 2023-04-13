@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Segmented, SegmentedProps } from "antd";
+import CreateRestaurantForm from "../../restaurants/RestaurantForm/CreateRestaurantForm";
 
 interface crudProps {
   crudOption: string | number;
@@ -15,6 +16,7 @@ const Crud = () => {
   const [values, setValues] = useState<crudProps>(initialValues);
 
   const getForm = (values: crudProps) => {
+    return <CreateRestaurantForm />;
     switch (values.type) {
       case "Restaurants":
         return "RestaurantForm";
@@ -43,7 +45,7 @@ const Crud = () => {
             value={values.type}
             onChange={(value) => setValues({ ...values, type: value })}
           />
-          {getForm(values)}
+          {values.type !== "notChoosen" && getForm(values)}
         </>
       )}
     </>
