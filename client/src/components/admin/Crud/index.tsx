@@ -17,16 +17,6 @@ const Crud = () => {
 
   const getForm = (values: crudProps) => {
     return <CreateRestaurantForm />;
-    switch (values.type) {
-      case "Restaurants":
-        return "RestaurantForm";
-      case "Menu":
-        return "MenuForm";
-      case "Tables":
-        return "TablesForm";
-      default:
-        return "";
-    }
   };
 
   return (

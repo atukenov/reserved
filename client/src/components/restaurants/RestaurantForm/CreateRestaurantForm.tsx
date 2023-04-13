@@ -13,7 +13,7 @@ const Card = styled.div`
 const CreateRestaurantForm = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getRestaurantById("sd"));
+    dispatch(getRestaurantById("642ef060f40051fd78d07ce4d"));
   }, [dispatch]);
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);

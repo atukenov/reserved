@@ -13,7 +13,7 @@ const Alert = () => {
   useEffect(() => {
     if (alertType !== "idle" && msg !== "You are not authorized yet.") {
       notification[alertType]({
-        duration: 1,
+        duration: 5,
         placement: "bottomRight",
         message: msg,
       });

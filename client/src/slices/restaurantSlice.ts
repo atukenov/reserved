@@ -23,10 +23,13 @@ export const getRestaurantById = createAsyncThunk(
   "restaurant/getRestaurantById",
   async (restaurantId: string, thunkAPI) => {
     try {
-      alert(await _service.getRestairantById(restaurantId));
+      const response = await _service.getRestairantById(restaurantId);
+      console.log(response);
+      return response.data;
     } catch (error) {
       const e = error as Error;
       thunkAPI.dispatch(setAlert({ alertType: "error", msg: e.message }));
+      throw error;
     }
   }
 );
@@ -34,8 +37,6 @@ export const getRestaurantById = createAsyncThunk(
 export const fetchUsers = createAsyncThunk(
   "admin/fetchUsers",
   async (arg, thunkAPI) => {
-    const token = localStorage.token;
-    if (token) config.headers["x-auth-token"] = token;
     try {
       const res = await axios.get("/api/admin/user", config);
       const data = await res.data;
@@ -131,29 +132,6 @@ export const adminSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchUsers.rejected, (state, action) => {
-        state.loading = false;
-      })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.userData?.push(action.payload);
-        state.loading = false;
-      })
-      .addCase(registerUser.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.loading = false;
-      })
-      .addCase(deleteUser.fulfilled, (state, action) => {
-        let newUserData: any = state.userData?.filter(
-          (user: any) => user._id !== action.payload
-        );
-        state.userData = newUserData;
-        state.loading = false;
-      })
-      .addCase(deleteUser.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(deleteUser.rejected, (state, action) => {
         state.loading = false;
       });
   },
