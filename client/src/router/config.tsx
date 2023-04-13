@@ -1,5 +1,4 @@
 import React from "react";
-import PrivateRoute from "./PrivateRoute";
 
 import NotFound from "../pages/Errors/NotFound";
 import AccessDenied from "../pages/Errors/AccessDenied";
