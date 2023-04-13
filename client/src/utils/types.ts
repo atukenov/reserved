@@ -19,6 +19,13 @@ export const device = {
   desktop: `only screen and (min-width: 1200px)`,
 };
 
+export interface Error {
+  success: boolean;
+  status: number;
+  message: string;
+  stack: string;
+}
+
 //TODO update types.
 
 // Old props

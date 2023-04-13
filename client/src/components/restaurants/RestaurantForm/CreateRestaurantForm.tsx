@@ -1,22 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { PlusOutlined } from "@ant-design/icons";
-import {
-  Form,
-  Input,
-  Button,
-  Radio,
-  Select,
-  Cascader,
-  DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
-  Checkbox,
-  Upload,
-} from "antd";
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
+import { Form, Input, Button, InputNumber } from "antd";
+import { useAppDispatch } from "../../../app/hooks";
+import { getRestaurantById } from "../../../slices/restaurantSlice";
 
 const Card = styled.div`
   box-shadow: 0px 0px 4px gray;
@@ -25,6 +11,10 @@ const Card = styled.div`
 `;
 
 const CreateRestaurantForm = () => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getRestaurantById("sd"));
+  }, [dispatch]);
   const onFinish = (values: any) => {
     console.log("Received values of form: ", values);
   };
