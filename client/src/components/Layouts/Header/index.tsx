@@ -1,5 +1,5 @@
 import { Intro, IntroTitle, Wrapper } from "./styles";
-import SearchBar from "../SearchBar";
+import SearchBar from "../../common/SearchBar";
 
 const Header = () => {
   return (

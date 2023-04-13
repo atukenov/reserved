@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Title, Wrapper } from "./styles";
-import { SvgIcon } from "../SvgIcon";
+import { SvgIcon } from "../../common/SvgIcon";
 
 const Featured = () => {
   return (
