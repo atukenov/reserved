@@ -1,9 +1,9 @@
 import { notification } from "antd";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { alertSelector, clearAlert } from "../../slices/alertSlice";
-import { logout } from "../../slices/authSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { alertSelector, clearAlert } from "../../../slices/alertSlice";
+import { logout } from "../../../slices/authSlice";
 
 const Alert = () => {
   const { alertType, msg } = useAppSelector(alertSelector);

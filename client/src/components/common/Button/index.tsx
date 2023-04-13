@@ -1,5 +1,5 @@
 import { StyledButton } from "./styles";
-import { ButtonProps } from "../../utils/types";
+import { ButtonProps } from "../../../utils/types";
 
 export const Button = ({
   color,

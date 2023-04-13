@@ -4,17 +4,13 @@ import {
   BurgerLine,
   Container,
   DropDown,
-  Intro,
-  IntroTitle,
   List,
   ListItem,
   Logo,
   Nav,
-  Wrapper,
 } from "./styles";
-import SearchBar from "../SearchBar";
 
-const Header = () => {
+const Navbar = () => {
   const [open, setOpen] = useState("closed");
 
   const handleDropDown = () => {
@@ -27,9 +23,8 @@ const Header = () => {
       }
     });
   };
-
   return (
-    <Wrapper>
+    <>
       <Container>
         <Nav>
           <Logo>RESERVED</Logo>
@@ -51,15 +46,8 @@ const Header = () => {
         </ul>
         <p>2023 ©️ Amakenzi 🤍</p>
       </DropDown>
-
-      <Intro>
-        <IntroTitle>
-          Welcome to Reserved! Reserve the restaurant now.
-        </IntroTitle>
-      </Intro>
-      <SearchBar />
-    </Wrapper>
+    </>
   );
 };
 
-export default Header;
+export default Navbar;

@@ -10,7 +10,7 @@ import {
   Location,
 } from "./styles";
 
-const RestaurantDetails = () => {
+const RestaurantCard = () => {
   return (
     <Card>
       <CardImg>
@@ -27,4 +27,4 @@ const RestaurantDetails = () => {
   );
 };
 
-export default RestaurantDetails;
+export default RestaurantCard;

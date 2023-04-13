@@ -1,18 +1,13 @@
-import Featured from "../../components/Featured";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
-import Popular from "../../components/Popular";
-import ScrollToTop from "../../components/ScrollToTop";
+import Featured from "../../components/common/Featured";
+import Header from "../../components/common/Header";
+import PopularList from "../../components/restaurants/PopularRestaurantList";
 
 const Home = () => {
   return (
     <>
-      <div id="top" />
-      <ScrollToTop />
       <Header />
       <Featured />
-      <Popular />
-      <Footer />
+      <PopularList />
     </>
   );
 };

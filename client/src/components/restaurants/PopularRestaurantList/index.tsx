@@ -1,27 +1,27 @@
 import React from "react";
-import RestaurantDetails from "../RestaurantDetails";
+import RestaurantCard from "../RestaurantCard";
 import { Container, List, ListItem, Title } from "./styles";
 
-const Popular = () => {
+const PopularList = () => {
   return (
     <Container>
       <Title>Popular restaurants</Title>
       <List>
         <ListItem>
-          <RestaurantDetails />
+          <RestaurantCard />
         </ListItem>
         <ListItem>
-          <RestaurantDetails />
+          <RestaurantCard />
         </ListItem>
         <ListItem>
-          <RestaurantDetails />
+          <RestaurantCard />
         </ListItem>
         <ListItem>
-          <RestaurantDetails />
+          <RestaurantCard />
         </ListItem>
       </List>
     </Container>
   );
 };
 
-export default Popular;
+export default PopularList;

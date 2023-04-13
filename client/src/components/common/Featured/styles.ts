@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { device } from "../../utils/types";
+import { device } from "../../../utils/types";
 
 export const Container = styled.div`
   width: 100%;
