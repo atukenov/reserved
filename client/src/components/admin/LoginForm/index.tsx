@@ -1,9 +1,13 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import Container from "../../common/Container";
+import { useAppDispatch } from "../../../app/hooks";
+import { login } from "../../../slices/userSlice";
 
 const LoginForm = () => {
+  const dispatch = useAppDispatch();
   const onFinish = (values: any) => {
+    dispatch(login(values));
     console.log("Received values of form: ", values);
   };
 

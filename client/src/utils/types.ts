@@ -1,15 +1,16 @@
 import React from "react";
 
-export enum roles {
+export enum Roles {
   Admin = "admin",
   User = "user",
   God = "god",
   Moderator = "moderator",
 }
 
-export interface alertProps {
-  alertType: "idle" | "error" | "warning" | "success" | "info";
-  msg: string | null;
+export enum Status {
+  Confirmed = "confirmed",
+  Pending = "pending",
+  Cancelled = "cancelled",
 }
 
 export const device = {
@@ -24,6 +25,81 @@ export interface Error {
   status: number;
   message: string;
   stack: string;
+}
+
+export interface alertProps {
+  alertType: "idle" | "error" | "warning" | "success" | "info";
+  msg: string | null;
+}
+
+interface State {
+  loading: boolean;
+}
+
+// Data types
+export interface User {
+  userId: string;
+  username: string;
+  email: string;
+  role: string;
+  phoneNumber: string;
+  reservationHistory: string[];
+}
+
+export interface Authorization {
+  username?: string;
+  password?: string;
+  email?: string;
+}
+
+export interface Restaurant {
+  restaurantId: string;
+  restaurantName: string;
+  location: string;
+  contactDetails: {
+    phoneNumber: string;
+    email: string;
+  };
+  hoursOfOperation?: string;
+  type: string;
+  menu?: string[];
+  tableCapacity: number;
+  images?: [{ url: string; alt: string }];
+}
+
+export interface Menu {
+  menuId: string;
+  restaurantId: string;
+  itemName: string;
+  description: string;
+  price: string;
+  ingredients?: string[];
+  image?: {
+    url: string;
+    alt: string;
+  };
+}
+
+export interface Reservation {
+  userId: string;
+  restaurantId: string;
+  tableId: string;
+  reservationDate: Date;
+  partySize: number;
+  specialRequest: string;
+  status: Status;
+}
+
+// States
+export interface RestaurantState extends State {
+  restaurants?: Restaurant[];
+  restaurant: Restaurant | null;
+  totalItem: number;
+  pageSize?: number;
+}
+
+export interface UserState extends State {
+  user: User | null;
 }
 
 //TODO update types.

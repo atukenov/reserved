@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import alertReducer from "../slices/alertSlice";
 import projectReducer from "../slices/projectSlice";
-import adminReducer from "../slices/adminSlice";
+import userReducer from "../slices/userSlice";
+import restaurantReducer from "../slices/restaurantSlice";
 
 export const store = configureStore({
   reducer: {
     alert: alertReducer,
     project: projectReducer,
-    admin: adminReducer,
+    user: userReducer,
+    restaurant: restaurantReducer,
   },
 });
 

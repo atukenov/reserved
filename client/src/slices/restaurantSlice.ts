@@ -1,30 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-import axios from "axios";
 import { RootState } from "../app/store";
-import { Error, UserProps } from "../utils/types";
+import { Error, Restaurant, RestaurantState } from "../utils/types";
 import { setAlert } from "./alertSlice";
-import _service from "../utils/api";
+import _service from "../utils/apis";
 
-const initialState: UserProps = {
-  userData: null,
-  user: null,
+const initialState: RestaurantState = {
+  restaurants: [],
+  restaurant: null,
+  totalItem: 0,
+  pageSize: 10,
   loading: true,
 };
 
-let config = {
-  headers: {
-    "Content-type": "application/json",
-    "x-auth-token": "",
-  },
-};
-
 export const getRestaurantById = createAsyncThunk(
-  "restaurant/getRestaurantById",
+  "restaurants/getById",
   async (restaurantId: string, thunkAPI) => {
     try {
-      const response = await _service.getRestairantById(restaurantId);
-      console.log(response);
+      const response = await _service.getRestaurantById(restaurantId);
       return response.data;
     } catch (error) {
       const e = error as Error;
@@ -34,88 +26,40 @@ export const getRestaurantById = createAsyncThunk(
   }
 );
 
-export const fetchUsers = createAsyncThunk(
-  "admin/fetchUsers",
-  async (arg, thunkAPI) => {
+export const getAllRestaurants = createAsyncThunk(
+  "restaurants/getAll",
+  async (_, thunkAPI) => {
     try {
-      const res = await axios.get("/api/admin/user", config);
-      const data = await res.data;
-
-      if (res.status === 200) {
-        thunkAPI.dispatch(
-          setAlert({ alertType: "success", msg: "All Users fetched" })
-        );
-        return data;
-      }
+      const response = await _service.getAllRestaurants();
+      return response.data;
     } catch (error) {
-      const e: any = error;
-      thunkAPI.dispatch(
-        setAlert({ alertType: "error", msg: e.response.data.msg })
-      );
-      return thunkAPI.rejectWithValue(e.response.data);
+      const e = error as Error;
+      thunkAPI.dispatch(setAlert({ alertType: "error", msg: e.message }));
+      throw error;
     }
   }
 );
 
-export const registerUser = createAsyncThunk(
-  "admin/registerUser",
-  async (data: any, thunkAPI) => {
-    const token = localStorage.token;
-    if (token) config.headers["x-auth-token"] = token;
-    data.email = data.email.toLowerCase();
-    const body = JSON.stringify(data);
+export const createRestaurant = createAsyncThunk(
+  "restaurants/create",
+  async (body: Restaurant, thunkAPI) => {
     try {
-      const res = await axios.post("/api/admin/register", body, config);
-      let data = await res.data;
-      if (res.status === 200) {
-        thunkAPI.dispatch(
-          setAlert({
-            alertType: "success",
-            msg: "User registered successfully!",
-          })
-        );
-        return data;
-      }
-    } catch (error) {
-      const e: any = error;
+      const response: any = await _service.createRestaurant(body);
       thunkAPI.dispatch(
-        setAlert({ alertType: "error", msg: e.response.data.msg })
+        setAlert({ alertType: "success", msg: "Restaurant Created" })
       );
-      return thunkAPI.rejectWithValue(e.response.data);
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+
+      thunkAPI.dispatch(setAlert({ alertType: "error", msg: e.message }));
+      throw error;
     }
   }
 );
 
-export const deleteUser = createAsyncThunk(
-  "admin/deleteUser",
-  async (id: string, thunkAPI) => {
-    const token = localStorage.token;
-    if (token) config.headers["x-auth-token"] = token;
-    const body = JSON.stringify({ id: id });
-    try {
-      const res = await axios.delete("/api/admin/delete", {
-        headers: config.headers,
-        data: body,
-      });
-      let data = await res.data;
-      if (res.status === 200) {
-        thunkAPI.dispatch(
-          setAlert({ alertType: "success", msg: "User deleted" })
-        );
-        return data;
-      }
-    } catch (error) {
-      const e: any = error;
-      thunkAPI.dispatch(
-        setAlert({ alertType: "error", msg: e.response.data.msg })
-      );
-      return thunkAPI.rejectWithValue(e.response.data);
-    }
-  }
-);
-
-export const adminSlice = createSlice({
-  name: "admin",
+export const restaurantSlice = createSlice({
+  name: "restaurant",
   initialState: initialState,
   reducers: {
     cleanData: (state) => {
@@ -124,24 +68,44 @@ export const adminSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.userData = action.payload;
+      .addCase(getRestaurantById.fulfilled, (state, action) => {
+        state.restaurant = action.payload;
         state.loading = false;
       })
-      .addCase(fetchUsers.pending, (state) => {
+      .addCase(getRestaurantById.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchUsers.rejected, (state, action) => {
+      .addCase(getRestaurantById.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(getAllRestaurants.fulfilled, (state, action) => {
+        state.restaurants = action.payload;
+        state.loading = false;
+      })
+      .addCase(getAllRestaurants.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getAllRestaurants.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(createRestaurant.fulfilled, (state, action) => {
+        state.restaurant = action.payload;
+        state.loading = false;
+      })
+      .addCase(createRestaurant.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createRestaurant.rejected, (state) => {
         state.loading = false;
       });
   },
 });
 
-export const { cleanData } = adminSlice.actions;
+export const { cleanData } = restaurantSlice.actions;
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.auth.value)`
-export const adminSelector = (state: RootState) => state.admin;
+export const restaurantSelector = (state: RootState) => state.restaurant;
 
-export default adminSlice.reducer;
+export default restaurantSlice.reducer;

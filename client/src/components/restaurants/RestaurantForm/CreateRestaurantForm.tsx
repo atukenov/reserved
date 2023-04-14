@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Form, Input, Button, InputNumber } from "antd";
 import { useAppDispatch } from "../../../app/hooks";
-import { getRestaurantById } from "../../../slices/restaurantSlice";
+import { createRestaurant } from "../../../slices/restaurantSlice";
+import { Restaurant } from "../../../utils/types";
 
 const Card = styled.div`
   box-shadow: 0px 0px 4px gray;
@@ -12,18 +13,17 @@ const Card = styled.div`
 
 const CreateRestaurantForm = () => {
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getRestaurantById("642ef060f40051fd78d07ce4d"));
-  }, [dispatch]);
-  const onFinish = (values: any) => {
+
+  const onFinish = (values: Restaurant) => {
+    dispatch(createRestaurant(values));
     console.log("Received values of form: ", values);
   };
 
   return (
     <Card>
       <Form
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
         layout="horizontal"
         style={{ maxWidth: 600 }}
         onFinish={onFinish}

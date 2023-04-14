@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import usersRoute from "./routes/users.js";
 import tablesRoute from "./routes/tables.js";
 import restaurantsRoute from "./routes/restaurants.js";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
@@ -21,6 +22,7 @@ const connect = async () => {
 //middlewares
 app.use(cookieParser());
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/tables", tablesRoute);
 app.use("/api/restaurants", restaurantsRoute);
