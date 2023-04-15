@@ -76,9 +76,9 @@ export const login = async (req, res, next) => {
     );
 
     res
-      .cookie("access_token", token, { httpOnly: true })
+      .cookie("access_token", token, { httpOnly: false })
       .status(201)
-      .json(user);
+      .json({ user, token });
   } catch (err) {
     next(err);
   }
@@ -108,7 +108,7 @@ export const deleteUser = async (req, res, next) => {
 };
 export const getUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.id).select("-password");
     res.status(200).json(user);
   } catch (err) {
     next(err);
@@ -118,6 +118,15 @@ export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+};
+export const loadUser = async (req, res, next) => {
+  try {
+    console.log(req.user);
+    const user = await User.findById(req.user.id).select("-password");
+    res.status(200).json(user);
   } catch (err) {
     next(err);
   }

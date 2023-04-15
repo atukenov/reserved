@@ -1,14 +1,28 @@
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  LockOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
 import Container from "../../common/Container";
-import { useAppDispatch } from "../../../app/hooks";
-import { login } from "../../../slices/userSlice";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { login, userSelector } from "../../../slices/userSlice";
+import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const dispatch = useAppDispatch();
+  const { user } = useAppSelector(userSelector);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate("/admin/dashboard", { replace: true });
+  }, [user, navigate]);
+
   const onFinish = (values: any) => {
     dispatch(login(values));
-    console.log("Received values of form: ", values);
   };
 
   return (
@@ -23,19 +37,19 @@ const LoginForm = () => {
           name="username"
           rules={[{ required: true, message: "Please input your Username!" }]}
         >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
-          />
+          <Input prefix={<UserOutlined />} placeholder="Username" />
         </Form.Item>
         <Form.Item
           name="password"
           rules={[{ required: true, message: "Please input your Password!" }]}
         >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
+          <Input.Password
+            prefix={<LockOutlined />}
             type="password"
             placeholder="Password"
+            iconRender={(visible) =>
+              visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
+            }
           />
         </Form.Item>
         <Form.Item>

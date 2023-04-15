@@ -11,6 +11,7 @@ import LoginForm from "../components/admin/LoginForm";
 import Dashboard from "../components/admin/Dashboard";
 import Crud from "../components/admin/Crud";
 import Settings from "../components/admin/Settings";
+import PrivateRoutes from "./PrivateRoutes";
 
 const routes = [
   {
@@ -37,7 +38,11 @@ const routes = [
       },
       {
         path: "dashboard",
-        element: <Dashboard />,
+        element: (
+          <PrivateRoutes>
+            <Dashboard />
+          </PrivateRoutes>
+        ),
         children: [
           {
             path: "crud",

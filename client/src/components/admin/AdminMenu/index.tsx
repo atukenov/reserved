@@ -7,7 +7,9 @@ import {
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../../app/hooks";
+import { logout } from "../../../slices/userSlice";
 
 const items: MenuProps["items"] = [
   {
@@ -21,7 +23,7 @@ const items: MenuProps["items"] = [
     icon: <SettingOutlined />,
   },
   {
-    label: <a href="/logout">Logout</a>,
+    label: <label>Logout</label>,
     key: "logout",
     icon: <PoweroffOutlined />,
   },
@@ -29,8 +31,14 @@ const items: MenuProps["items"] = [
 
 const AdminMenu = () => {
   const [current, setCurrent] = useState("");
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onClick: MenuProps["onClick"] = (e) => {
+    if (e.key === "logout") {
+      dispatch(logout());
+      navigate("/admin/login", { replace: true });
+    }
     setCurrent(e.key);
   };
   return (

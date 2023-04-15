@@ -20,6 +20,9 @@ const _service = {
   login: async (body: Authorization) => {
     return await api.post("users/login", body);
   },
+  loadUser: async () => {
+    return await api.get("/users/load");
+  },
   //Restaurant API
   getRestaurantById: async (restaurantId: string) => {
     return await api.get("restaurants/" + restaurantId);
@@ -28,12 +31,7 @@ const _service = {
     return await api.get("restaurants");
   },
   createRestaurant: async (body: Restaurant) => {
-    try {
-      return await api.post("restaurants", body);
-    } catch (error) {
-      console.log(error);
-      return error;
-    }
+    return await api.post("restaurants", body);
   },
   //Menu API
   //Table API

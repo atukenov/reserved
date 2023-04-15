@@ -3,6 +3,7 @@ import { RootState } from "../app/store";
 import { Error, Restaurant, RestaurantState } from "../utils/types";
 import { setAlert } from "./alertSlice";
 import _service from "../utils/apis";
+import { AxiosError } from "axios";
 
 const initialState: RestaurantState = {
   restaurants: [],
@@ -44,16 +45,17 @@ export const createRestaurant = createAsyncThunk(
   "restaurants/create",
   async (body: Restaurant, thunkAPI) => {
     try {
-      const response: any = await _service.createRestaurant(body);
+      const response = await _service.createRestaurant(body);
       thunkAPI.dispatch(
         setAlert({ alertType: "success", msg: "Restaurant Created" })
       );
       return response.data;
     } catch (error) {
-      const e = error as Error;
-
-      thunkAPI.dispatch(setAlert({ alertType: "error", msg: e.message }));
-      throw error;
+      const e = error as AxiosError;
+      if (!e.response) throw e;
+      thunkAPI.dispatch(
+        setAlert({ alertType: "error", msg: e.response.data.message })
+      );
     }
   }
 );

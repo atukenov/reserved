@@ -4,6 +4,7 @@ import {
   deleteUser,
   getUser,
   getUsers,
+  loadUser,
   login,
   register,
   updateUser,
@@ -29,6 +30,8 @@ router.post("/login", login);
 router.put("/:id", verifyUser, updateUser);
 //DELETE
 router.delete("/:id", verifyUser, deleteUser);
+//LOAD USER
+router.get("/load", verifyUser, loadUser);
 //GET
 router.get("/:id", verifyUser, getUser);
 //GET ALL
