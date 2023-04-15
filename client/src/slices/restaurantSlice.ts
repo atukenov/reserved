@@ -60,6 +60,25 @@ export const createRestaurant = createAsyncThunk(
   }
 );
 
+export const updateRestaurant = createAsyncThunk(
+  "restaurants/update",
+  async (body: Restaurant, thunkAPI) => {
+    try {
+      const response = await _service.updateRestaurant(body);
+      thunkAPI.dispatch(
+        setAlert({ alertType: "success", msg: "Restaurant Updated" })
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      if (!e.response) throw e;
+      thunkAPI.dispatch(
+        setAlert({ alertType: "error", msg: e.response.data.message })
+      );
+    }
+  }
+);
+
 export const restaurantSlice = createSlice({
   name: "restaurant",
   initialState: initialState,
@@ -98,6 +117,16 @@ export const restaurantSlice = createSlice({
         state.loading = true;
       })
       .addCase(createRestaurant.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(updateRestaurant.fulfilled, (state, action) => {
+        state.restaurant = action.payload;
+        state.loading = false;
+      })
+      .addCase(updateRestaurant.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateRestaurant.rejected, (state) => {
         state.loading = false;
       });
   },

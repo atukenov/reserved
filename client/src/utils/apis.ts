@@ -33,6 +33,9 @@ const _service = {
   createRestaurant: async (body: Restaurant) => {
     return await api.post("restaurants", body);
   },
+  updateRestaurant: async (body: Restaurant) => {
+    return await api.put("restaurants/" + body._id);
+  },
   //Menu API
   //Table API
   //User API

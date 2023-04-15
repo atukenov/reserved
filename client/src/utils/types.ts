@@ -38,7 +38,7 @@ interface State {
 
 // Data types
 export interface User {
-  userId: string;
+  _id: string;
   username: string;
   email: string;
   role: string;
@@ -53,7 +53,7 @@ export interface Authorization {
 }
 
 export interface Restaurant {
-  restaurantId: string;
+  _id: string;
   restaurantName: string;
   location: string;
   contactDetails: {
@@ -68,7 +68,7 @@ export interface Restaurant {
 }
 
 export interface Menu {
-  menuId: string;
+  _id: string;
   restaurantId: string;
   itemName: string;
   description: string;
@@ -81,7 +81,7 @@ export interface Menu {
 }
 
 export interface Reservation {
-  userId: string;
+  _id: string;
   restaurantId: string;
   tableId: string;
   reservationDate: Date;
