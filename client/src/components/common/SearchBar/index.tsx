@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChild,
+  faPerson,
+  faUtensils,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   Button,
   Container,
@@ -33,24 +39,34 @@ const SearchBar = () => {
   return (
     <Container>
       <Wrapper>
-        <Icon>I</Icon>
+        <Icon>
+          <FontAwesomeIcon icon={faUtensils} size="xl" />
+        </Icon>
         <Input placeholder="Where are you planning to eat?" />
         <Capacity onClick={handleOpen}>
-          <Icon>I</Icon>
+          <Icon>
+            <FontAwesomeIcon icon={faPerson} size="xl" />
+          </Icon>
           <span>{adult}</span>
-          <Icon>I</Icon>
+          <Icon>
+            <FontAwesomeIcon icon={faChild} size="sm" />
+          </Icon>
           <span>{child}</span>
         </Capacity>
         <Counter className={`${open}`}>
           <List>
             <ListItem>
-              <Icon>I</Icon>
+              <Icon>
+                <FontAwesomeIcon icon={faPerson} size="xl" />
+              </Icon>
               <Sign onClick={() => decrement("adult")}>-</Sign>
               <span>{adult}</span>
               <Sign onClick={() => increment("adult")}>+</Sign>
             </ListItem>
             <ListItem>
-              <Icon>I</Icon>
+              <Icon>
+                <FontAwesomeIcon icon={faChild} size="sm" />
+              </Icon>
               <Sign onClick={() => decrement("child")}>-</Sign>
               <span>{child}</span>
               <Sign onClick={() => increment("child")}>+</Sign>
