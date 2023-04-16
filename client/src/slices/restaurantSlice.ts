@@ -159,6 +159,7 @@ export const restaurantSlice = createSlice({
         let newRestaurants = state.restaurants?.filter(
           (i) => i._id !== action.payload._id
         );
+        console.log(newRestaurants);
         state.restaurants = newRestaurants;
         state.loading = false;
       })

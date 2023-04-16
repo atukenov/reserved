@@ -9,18 +9,26 @@ import {
   Title,
   Location,
 } from "./styles";
+import { Restaurant } from "../../../utils/types";
 
-const RestaurantCard = () => {
+interface Props {
+  restaurant: Restaurant;
+}
+
+const RestaurantCard: React.FC<Props> = ({ restaurant }) => {
   return (
     <Card>
       <CardImg>
-        <img src="https://source.unsplash.com/random/250x200?fruit" alt="" />
+        <img
+          src={`https://source.unsplash.com/random/250x200?${restaurant.restaurantName}`}
+          alt={restaurant.restaurantName}
+        />
         <Ratings>* 4.6</Ratings>
       </CardImg>
       <CardBody>
-        <Title>Atyrau kala is the best one.</Title>
-        <Location>fadsfsad</Location>
-        <Info>fdsafasd</Info>
+        <Title>{restaurant.restaurantName}</Title>
+        <Location>{restaurant.location}</Location>
+        <Info>{restaurant.type}</Info>
         <Button>Reserve Now</Button>
       </CardBody>
     </Card>

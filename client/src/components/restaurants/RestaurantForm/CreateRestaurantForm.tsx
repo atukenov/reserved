@@ -4,6 +4,7 @@ import { Form, Input, Button, InputNumber } from "antd";
 import { useAppDispatch } from "../../../app/hooks";
 import { createRestaurant } from "../../../slices/restaurantSlice";
 import { Restaurant } from "../../../utils/types";
+import { useForm } from "antd/lib/form/Form";
 
 const Card = styled.div`
   box-shadow: 0px 0px 4px gray;
@@ -13,15 +14,16 @@ const Card = styled.div`
 
 const CreateRestaurantForm = () => {
   const dispatch = useAppDispatch();
+  const [form] = useForm();
 
   const onFinish = (values: Restaurant) => {
     dispatch(createRestaurant(values));
-    console.log("Received values of form: ", values);
   };
 
   return (
     <Card>
       <Form
+        form={form}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         layout="horizontal"

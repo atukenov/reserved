@@ -59,9 +59,8 @@ export const updateRestaurant = async (req, res, next) => {
 export const deleteRestaurant = async (req, res, next) => {
   const restaurantId = req.params.id;
   try {
-    await Restaurant.findByIdAndDelete(restaurantId);
-
-    res.status(200).json("Restaurant has been deleted.");
+    const deletedRestaurant = await Restaurant.findByIdAndDelete(restaurantId);
+    res.status(200).json(deletedRestaurant);
   } catch (err) {
     next(err);
   }

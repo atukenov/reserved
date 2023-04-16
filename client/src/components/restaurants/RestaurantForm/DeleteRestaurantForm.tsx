@@ -36,6 +36,7 @@ const DeleteRestaurantForm = () => {
 
   const onFinish = (values: Restaurant) => {
     dispatch(deleteRestaurant(values._id));
+    form.resetFields();
   };
 
   return (

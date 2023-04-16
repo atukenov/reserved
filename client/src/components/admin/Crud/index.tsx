@@ -26,6 +26,14 @@ const Crud = () => {
   const [values, setValues] = useState<crudProps>(initialValues);
 
   const getForm = (values: crudProps) => {
+    /**
+			* getForm
+			* TODO need to change to <[type]Form />
+			* TODO and create for every type form with crud.
+			* TODO and add spinning to them
+
+		*/
+
     const component = `${values.crudOption}${values.type}`;
     return Forms[component as keyof typeof Forms];
   };
