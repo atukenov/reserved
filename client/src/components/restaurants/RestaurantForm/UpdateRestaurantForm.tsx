@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Form, Input, Button, InputNumber, Select } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
@@ -8,7 +8,6 @@ import {
   updateRestaurant,
 } from "../../../slices/restaurantSlice";
 import { Restaurant } from "../../../utils/types";
-import { P } from "../../../pages/Home/styles";
 
 const Card = styled.div`
   box-shadow: 0px 0px 4px gray;
@@ -19,19 +18,30 @@ const Card = styled.div`
 const UpdateRestaurantForm = () => {
   const dispatch = useAppDispatch();
   const { restaurants } = useAppSelector(restaurantSelector);
+  const [restaurant, setRestaurant] = useState<Restaurant>();
+  const [form] = Form.useForm();
 
   useEffect(() => {
     dispatch(getAllRestaurants());
   }, [dispatch]);
 
+  useEffect(() => {
+    form.setFieldsValue({ ...restaurant });
+  }, [restaurant, form]);
+
+  const handleSelection = (value: string) => {
+    // form.resetFields();
+    setRestaurant(restaurants?.find((p) => p._id === value));
+  };
+
   const onFinish = (values: Restaurant) => {
-    // dispatch(updateRestaurant(values));
-    console.log("Received values of form: ", values);
+    dispatch(updateRestaurant(values));
   };
 
   return (
     <Card>
       <Form
+        form={form}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         layout="horizontal"
@@ -42,16 +52,15 @@ const UpdateRestaurantForm = () => {
           <Select
             showSearch
             placeholder="Search to Select"
-            // filterOption={(input, option) =>
-            //   (option?.restaurantName ?? "")
-            //     .toLowerCase()
-            //     .includes(input.toLowerCase())
-            // }
-            // filterSort={(optionA, optionB) =>
-            //   (optionA?.restaurantName ?? "")
-            //     .toLowerCase()
-            //     .localeCompare((optionB?.restaurantName ?? "").toLowerCase())
-            // }
+            onChange={handleSelection}
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            filterSort={(optionA, optionB) =>
+              (optionA?.label ?? "")
+                .toLowerCase()
+                .localeCompare((optionB?.label ?? "").toLowerCase())
+            }
             options={restaurants?.map((item) => {
               return {
                 value: item._id,

@@ -120,7 +120,10 @@ export const restaurantSlice = createSlice({
         state.loading = false;
       })
       .addCase(updateRestaurant.fulfilled, (state, action) => {
-        state.restaurant = action.payload;
+        console.log(action.payload);
+        // state.restaurants = state.restaurants?.map((i) => {
+        //   return i._id === action.payload._id ? action.payload : i;
+        // });
         state.loading = false;
       })
       .addCase(updateRestaurant.pending, (state) => {
