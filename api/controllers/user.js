@@ -124,7 +124,6 @@ export const getUsers = async (req, res, next) => {
 };
 export const loadUser = async (req, res, next) => {
   try {
-    console.log(req.user);
     const user = await User.findById(req.user.id).select("-password");
     res.status(200).json(user);
   } catch (err) {

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Segmented, SegmentedProps } from "antd";
 import CreateRestaurantForm from "../../restaurants/RestaurantForm/CreateRestaurantForm";
 import UpdateRestaurantForm from "../../restaurants/RestaurantForm/UpdateRestaurantForm";
+import DeleteRestaurantForm from "../../restaurants/RestaurantForm/DeleteRestaurantForm";
 
 interface crudProps {
   crudOption: string | number;
@@ -18,6 +19,7 @@ const Forms = {
   CreateMenu: <CreateRestaurantForm />,
   CreateTable: <CreateRestaurantForm />,
   UpdateRestaurant: <UpdateRestaurantForm />,
+  DeleteRestaurant: <DeleteRestaurantForm />,
 };
 
 const Crud = () => {

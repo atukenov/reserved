@@ -45,14 +45,27 @@ const CreateRestaurantForm = () => {
         <Form.Item
           label="Phone number"
           name={["contactDetails", "phoneNumber"]}
-          rules={[{ required: true, message: "Please enter Phone Number." }]}
+          rules={[
+            { required: true, message: "Please enter Phone Number." },
+            {
+              min: 12,
+              max: 12,
+              message: "Phone number must be 12 length",
+            },
+          ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           label="Email"
           name={["contactDetails", "email"]}
-          rules={[{ required: true, message: "Please enter email." }]}
+          rules={[
+            { required: true, message: "Please enter email." },
+            {
+              type: "email",
+              message: "Must have email format.",
+            },
+          ]}
         >
           <Input type="email" />
         </Form.Item>
@@ -77,6 +90,7 @@ const CreateRestaurantForm = () => {
           name="tableCapacity"
           rules={[
             { required: true, message: "Please enter number of tables." },
+            { type: "number", message: "Must be a number." },
           ]}
         >
           <InputNumber min={1} />

@@ -28,7 +28,7 @@ export const createRestaurant = async (req, res, next) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(createError(400, errors.array()));
+      return next(createError(400, "Validation Error!"));
     }
   } catch (err) {
     return next(err);

@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   getAllRestaurants,
   restaurantSelector,
-  updateRestaurant,
+  deleteRestaurant,
 } from "../../../slices/restaurantSlice";
 import { Restaurant } from "../../../utils/types";
 
@@ -15,7 +15,7 @@ const Card = styled.div`
   margin-top: 10px;
 `;
 
-const UpdateRestaurantForm = () => {
+const DeleteRestaurantForm = () => {
   const dispatch = useAppDispatch();
   const { restaurants } = useAppSelector(restaurantSelector);
   const [restaurant, setRestaurant] = useState<Restaurant>();
@@ -35,7 +35,7 @@ const UpdateRestaurantForm = () => {
   };
 
   const onFinish = (values: Restaurant) => {
-    dispatch(updateRestaurant(values));
+    dispatch(deleteRestaurant(values._id));
   };
 
   return (
@@ -69,58 +69,30 @@ const UpdateRestaurantForm = () => {
             })}
           />
         </Form.Item>
-        <Form.Item
-          label="Restaurant Name"
-          name="restaurantName"
-          rules={[{ required: true, message: "Please enter restaurant name." }]}
-        >
-          <Input />
+        <Form.Item label="Restaurant Name" name="restaurantName">
+          <Input disabled />
         </Form.Item>
-        <Form.Item
-          label="Location"
-          name="location"
-          rules={[{ required: true, message: "Please enter location." }]}
-        >
-          <Input />
+        <Form.Item label="Location" name="location">
+          <Input disabled />
         </Form.Item>
         <Form.Item
           label="Phone number"
           name={["contactDetails", "phoneNumber"]}
-          rules={[{ required: true, message: "Please enter Phone Number." }]}
         >
-          <Input />
+          <Input disabled />
         </Form.Item>
-        <Form.Item
-          label="Email"
-          name={["contactDetails", "email"]}
-          rules={[{ required: true, message: "Please enter email." }]}
-        >
-          <Input type="email" />
+        <Form.Item label="Email" name={["contactDetails", "email"]}>
+          <Input type="email" disabled />
         </Form.Item>
         <Form.Item label="Hours of Operation" name="hoursOfOperation">
-          <Input.TextArea />
+          <Input.TextArea disabled />
         </Form.Item>
-        <Form.Item
-          label="Type"
-          name="type"
-          rules={[
-            {
-              required: true,
-              message: "Please enter type of your restaurant.",
-            },
-          ]}
-        >
-          <Input />
+        <Form.Item label="Type" name="type">
+          <Input disabled />
         </Form.Item>
 
-        <Form.Item
-          label="Table Capacity"
-          name="tableCapacity"
-          rules={[
-            { required: true, message: "Please enter number of tables." },
-          ]}
-        >
-          <InputNumber min={1} />
+        <Form.Item label="Table Capacity" name="tableCapacity">
+          <InputNumber min={1} disabled />
         </Form.Item>
         {/* <Form.Item label="Upload Images" valuePropName="images">
           <Upload action="/upload.do" listType="picture-card">
@@ -140,4 +112,4 @@ const UpdateRestaurantForm = () => {
   );
 };
 
-export default UpdateRestaurantForm;
+export default DeleteRestaurantForm;

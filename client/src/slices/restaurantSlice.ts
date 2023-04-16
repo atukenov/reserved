@@ -56,6 +56,7 @@ export const createRestaurant = createAsyncThunk(
       thunkAPI.dispatch(
         setAlert({ alertType: "error", msg: e.response.data.message })
       );
+      return thunkAPI.rejectWithValue(e.response);
     }
   }
 );
@@ -75,6 +76,27 @@ export const updateRestaurant = createAsyncThunk(
       thunkAPI.dispatch(
         setAlert({ alertType: "error", msg: e.response.data.message })
       );
+      return thunkAPI.rejectWithValue(e.response);
+    }
+  }
+);
+
+export const deleteRestaurant = createAsyncThunk(
+  "restaurants/delete",
+  async (restaurantId: string, thunkAPI) => {
+    try {
+      const response = await _service.deleteRestaurant(restaurantId);
+      thunkAPI.dispatch(
+        setAlert({ alertType: "success", msg: "Restaurant deleted" })
+      );
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      if (!e.response) throw e;
+      thunkAPI.dispatch(
+        setAlert({ alertType: "error", msg: e.response.data.message })
+      );
+      return thunkAPI.rejectWithValue(e.response);
     }
   }
 );
@@ -111,25 +133,39 @@ export const restaurantSlice = createSlice({
       })
       .addCase(createRestaurant.fulfilled, (state, action) => {
         state.restaurant = action.payload;
+        state.restaurants?.push(action.payload);
         state.loading = false;
       })
       .addCase(createRestaurant.pending, (state) => {
         state.loading = true;
       })
-      .addCase(createRestaurant.rejected, (state) => {
+      .addCase(createRestaurant.rejected, (state, action) => {
+        console.log(action.payload);
         state.loading = false;
       })
       .addCase(updateRestaurant.fulfilled, (state, action) => {
-        console.log(action.payload);
-        // state.restaurants = state.restaurants?.map((i) => {
-        //   return i._id === action.payload._id ? action.payload : i;
-        // });
+        state.restaurants = state.restaurants?.map((i) => {
+          return i._id === action.payload._id ? action.payload : i;
+        });
         state.loading = false;
       })
       .addCase(updateRestaurant.pending, (state) => {
         state.loading = true;
       })
       .addCase(updateRestaurant.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(deleteRestaurant.fulfilled, (state, action) => {
+        let newRestaurants = state.restaurants?.filter(
+          (i) => i._id !== action.payload._id
+        );
+        state.restaurants = newRestaurants;
+        state.loading = false;
+      })
+      .addCase(deleteRestaurant.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteRestaurant.rejected, (state) => {
         state.loading = false;
       });
   },
