@@ -26,9 +26,11 @@ export const Details = styled.div`
   max-width: 1200px;
   width: 100%;
   flex-wrap: wrap;
+  padding: 5px;
 `;
 export const Restaurant = styled.div`
   background-color: green;
+  flex: 15 1 300px;
 `;
 export const Header = styled.div`
   display: flex;
@@ -39,10 +41,12 @@ export const Name = styled.div``;
 export const Location = styled.div``;
 export const Category = styled.div``;
 export const Description = styled.div``;
+export const Body = styled.div``;
 export const Tags = styled.div``;
 export const Tag = styled.div``;
 export const Reservation = styled.div`
   background-color: red;
+  flex: 1 1 300px;
 `;
-export const ReservationButton = styled.div``;
+export const ReservationButton = styled.button``;
 export const HoursOfOperation = styled.div``;

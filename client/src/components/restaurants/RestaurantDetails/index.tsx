@@ -16,6 +16,7 @@ import {
   Tags,
   Title,
   Location,
+  Body,
 } from "./styles";
 import { useParams } from "react-router-dom";
 
@@ -34,7 +35,10 @@ const RestaurantDetails = () => {
               <Category>International - Casual Dining - $$</Category>
             </Title>
           </Header>
-          <Description>A lorum prorum exsum and etc</Description>
+          <Description>
+            <Name>Description</Name>
+            <Body>A lorum prorum exsum and etc</Body>
+          </Description>
           <Tags>
             <Tag>tag1</Tag>
             <Tag>tag2</Tag>
