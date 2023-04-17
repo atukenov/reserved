@@ -23,7 +23,7 @@ const routes = [
         element: <Home />,
       },
       {
-        path: "restaurnat/:restaurantId",
+        path: "restaurants/:restaurantId",
         element: <RestaurantDetails />,
       },
     ],
