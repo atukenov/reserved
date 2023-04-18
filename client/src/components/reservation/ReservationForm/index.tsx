@@ -15,6 +15,9 @@ import {
   StepsContainer,
   Title,
   ProgressBar,
+  Form,
+  Button,
+  ButtonContainer,
 } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -25,30 +28,109 @@ import {
   faUtensils,
   faCheckDouble,
 } from "@fortawesome/free-solid-svg-icons";
+import useForm from "../../../utils/useForm";
+import DatePicker from "../../common/DatePicker";
+import moment from "moment";
 
 const ReservationForm = () => {
   const location = useLocation();
   const restaurant = location.state as Restaurant;
   const [step, setStep] = useState(1);
+  const { formData, handleChange } = useForm({
+    name: "",
+    lastname: "",
+    username: "",
+    password: "",
+    date: "",
+  });
 
   const getForm = () => {
     switch (step) {
       case 1:
-        return "date";
+        formData.password = "";
+        return (
+          <>
+            <DatePicker
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+            />
+          </>
+        );
       case 2:
-        return "no. of dinner";
+        formData.lastname = "";
+        return (
+          <>
+            <input
+              type="text"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </>
+        );
       case 3:
-        return "time";
+        formData.username = "";
+        return (
+          <>
+            <input
+              type="text"
+              name="lastname"
+              value={formData.lastname}
+              onChange={handleChange}
+            />
+          </>
+        );
       case 4:
-        return "guest";
+        return (
+          <>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+            />
+          </>
+        );
       case 5:
-        return "Waiting";
+        return "Submitted, please wait for response.";
     }
+  };
+
+  const handleBack = (e: any) => {
+    e.preventDefault();
+    setStep((prev) => (prev > 1 ? prev - 1 : prev));
+  };
+  const handleNext = (e: any) => {
+    e.preventDefault();
+    setStep((prev) => (prev < 5 ? prev + 1 : prev));
+  };
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    console.log(formData);
+    setStep((prev) => (prev < 5 ? prev + 1 : prev));
+  };
+
+  const getFormatDate = (date: string) => {
+    const m = moment(date, "YYYY-MM-DD");
+    console.log(m);
+    return (
+      <>
+        <Number>{m.format("D")}</Number>
+        <Text>
+          <div>{m.format("MMM")}</div>
+          <div>{m.format("YYYY")}</div>
+        </Text>
+      </>
+    );
   };
 
   return (
     <>
       <Container>
+        <h2>{restaurant.restaurantName}</h2>
+        <hr />
         <StepsContainer>
           <Steps>
             <Step className={step > 1 ? "active" : step === 1 ? "current" : ""}>
@@ -57,10 +139,6 @@ const ReservationForm = () => {
               </Icon>
               <Status />
               <Title>Date</Title>
-              <Data>
-                <Number></Number>
-                <Text></Text>
-              </Data>
             </Step>
             <ProgressBar
               className={step > 1 ? "active" : step === 1 ? "current" : ""}
@@ -71,10 +149,6 @@ const ReservationForm = () => {
               </Icon>
               <Status />
               <Title>Dinners</Title>
-              <Data>
-                <Number></Number>
-                <Text></Text>
-              </Data>
             </Step>
             <ProgressBar
               className={step > 2 ? "active" : step === 2 ? "current" : ""}
@@ -85,10 +159,6 @@ const ReservationForm = () => {
               </Icon>
               <Status />
               <Title>Time</Title>
-              <Data>
-                <Number></Number>
-                <Text></Text>
-              </Data>
             </Step>
             <ProgressBar
               className={step > 3 ? "active" : step === 3 ? "current" : ""}
@@ -98,11 +168,7 @@ const ReservationForm = () => {
                 <FontAwesomeIcon icon={faUser} size="2xl" />
               </Icon>
               <Status />
-              <Title>Guest Details</Title>
-              <Data>
-                <Number></Number>
-                <Text></Text>
-              </Data>
+              <Title>Guest</Title>
             </Step>
             <ProgressBar
               className={step > 4 ? "active" : step === 4 ? "current" : ""}
@@ -113,6 +179,33 @@ const ReservationForm = () => {
               </Icon>
               <Status />
               <Title>Waiting</Title>
+            </Step>
+          </Steps>
+        </StepsContainer>
+        <StepsContainer>
+          <Steps>
+            <Step>
+              <Data>{formData.date && getFormatDate(formData.date)}</Data>
+            </Step>
+            <Step>
+              <Data>
+                <Number>{formData.password}</Number>
+                <Text></Text>
+              </Data>
+            </Step>
+            <Step>
+              <Data>
+                <Number>{formData.lastname}</Number>
+                <Text></Text>
+              </Data>
+            </Step>
+            <Step>
+              <Data>
+                <Number>{formData.username}</Number>
+                <Text></Text>
+              </Data>
+            </Step>
+            <Step>
               <Data>
                 <Number></Number>
                 <Text></Text>
@@ -121,9 +214,20 @@ const ReservationForm = () => {
           </Steps>
         </StepsContainer>
         <FormContainer>
-          {getForm()}
-          <button onClick={() => setStep(step - 1)}>Back</button>
-          <button onClick={() => setStep(step + 1)}>Next</button>
+          <Form onSubmit={handleSubmit}>
+            {getForm()}
+            <ButtonContainer>
+              {step > 1 && step < 5 && (
+                <Button onClick={handleBack} className="back">
+                  Back
+                </Button>
+              )}
+              {step === 4 && <Button type="submit">Submit</Button>}
+              {step >= 1 && step < 4 && (
+                <Button onClick={handleNext}>Next</Button>
+              )}
+            </ButtonContainer>
+          </Form>
         </FormContainer>
       </Container>
     </>

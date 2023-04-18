@@ -39,7 +39,7 @@ export const Step = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* width: 100%; */
+  width: 60px;
 
   &.active {
     color: green;
@@ -70,15 +70,57 @@ export const ProgressBar = styled.div`
   }
 `;
 export const Icon = styled.div`
-  height: 50px;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Title = styled.div`
-  height: 50px;
+  height: 60px;
   padding-top: 10px;
   font-weight: 600;
+  width: 60px;
+  text-align: center;
 `;
-export const Data = styled.div``;
-export const Number = styled.div``;
-export const Text = styled.div``;
-export const FormContainer = styled.div``;
+export const Data = styled.div`
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const Number = styled.div`
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 25px;
+`;
+export const Text = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+export const FormContainer = styled.div`
+  margin-top: 30px;
+`;
+
+export const Form = styled.form``;
+export const ButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+`;
+export const Button = styled.button`
+  font-size: 18px;
+  padding: 3px 15px;
+  color: white;
+  background-color: orange;
+  border: 1px solid orange;
+  border-radius: 5px;
+  &.back {
+    background-color: green;
+    border-color: green;
+  }
+`;

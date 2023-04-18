@@ -76,5 +76,6 @@ export const ReservationButton = styled.button`
   letter-spacing: 1px;
   border: none;
   border-radius: 20px;
+  cursor: pointer;
 `;
 export const HoursOfOperation = styled.div``;

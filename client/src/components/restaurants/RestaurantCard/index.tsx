@@ -10,6 +10,7 @@ import {
   Location,
 } from "./styles";
 import { Restaurant } from "../../../utils/types";
+import { Link } from "react-router-dom";
 
 interface Props {
   restaurant: Restaurant;
@@ -29,7 +30,9 @@ const RestaurantCard: React.FC<Props> = ({ restaurant }) => {
         <Title>{restaurant.restaurantName}</Title>
         <Location>{restaurant.location}</Location>
         <Info>{restaurant.type}</Info>
-        <Button>Reserve Now</Button>
+        <Link to={`restaurants/${restaurant._id}`}>
+          <Button>Reserve Now</Button>
+        </Link>
       </CardBody>
     </Card>
   );
