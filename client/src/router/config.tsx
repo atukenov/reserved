@@ -12,6 +12,7 @@ import Dashboard from "../components/admin/Dashboard";
 import Crud from "../components/admin/Crud";
 import Settings from "../components/admin/Settings";
 import PrivateRoutes from "./PrivateRoutes";
+import ReservationForm from "../components/reservation/ReservationForm";
 
 const routes = [
   {
@@ -25,6 +26,10 @@ const routes = [
       {
         path: "restaurants/:restaurantId",
         element: <RestaurantDetails />,
+      },
+      {
+        path: "reservation",
+        element: <ReservationForm />,
       },
     ],
   },

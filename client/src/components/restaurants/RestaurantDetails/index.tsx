@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Category,
   Container,
@@ -19,43 +19,57 @@ import {
   Body,
 } from "./styles";
 import { useParams } from "react-router-dom";
+import { SvgIcon } from "../../common/SvgIcon";
+import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { getRestaurantById } from "../../../slices/restaurantSlice";
+import { restaurantSelector } from "../../../slices/restaurantSlice";
+import { Spin } from "antd";
 
 const RestaurantDetails = () => {
+  const dispatch = useAppDispatch();
   const { restaurantId } = useParams();
+  const { restaurant } = useAppSelector(restaurantSelector);
+
+  useEffect(() => {
+    if (restaurantId) dispatch(getRestaurantById(restaurantId));
+  }, [dispatch, restaurantId]);
+
   return (
-    <Container>
-      <ImageContainer>img</ImageContainer>
-      <Details>
-        <Restaurant>
-          <Header>
-            <Photo>photo</Photo>
-            <Title>
-              <Name>Name</Name>
-              <Location>Atyrau</Location>
-              <Category>International - Casual Dining - $$</Category>
-            </Title>
-          </Header>
-          <Description>
-            <Name>Description</Name>
-            <Body>A lorum prorum exsum and etc</Body>
-          </Description>
-          <Tags>
-            <Tag>tag1</Tag>
-            <Tag>tag2</Tag>
-            <Tag>tag3</Tag>
-            <Tag>tag1</Tag>
-            <Tag>tag1</Tag>
-            <Tag>tag1</Tag>
-            <Tag>tag1</Tag>
-            <Tag>tag1</Tag>
-          </Tags>
-        </Restaurant>
-        <Reservation>
-          <ReservationButton>Search Availability</ReservationButton>
-          <HoursOfOperation>hours</HoursOfOperation>
-        </Reservation>
-      </Details>
-    </Container>
+    <Spin spinning={restaurant ? false : true}>
+      <Container>
+        <ImageContainer></ImageContainer>
+        <Details>
+          <Restaurant>
+            <Header>
+              <Photo>
+                <SvgIcon width="100%" height="100%" />
+              </Photo>
+              <Title>
+                <Name>{restaurant?.restaurantName}</Name>
+                <Location>{restaurant?.location}</Location>
+                <Category>International - Casual Dining - $$</Category>
+              </Title>
+            </Header>
+            <Description>
+              <Name>Description</Name>
+              <Body>{restaurant?.description}</Body>
+            </Description>
+            <Tags>
+              {restaurant?.tags?.map((i, index) => {
+                return <Tag key={index}>{i}</Tag>;
+              })}
+            </Tags>
+          </Restaurant>
+          <Reservation>
+            <Link to="/reservation" state={restaurant}>
+              <ReservationButton>Search Availability</ReservationButton>
+            </Link>
+            <HoursOfOperation>{restaurant?.hoursOfOperation}</HoursOfOperation>
+          </Reservation>
+        </Details>
+      </Container>
+    </Spin>
   );
 };
 

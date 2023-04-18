@@ -55,6 +55,7 @@ export interface Authorization {
 export interface Restaurant {
   _id: string;
   restaurantName: string;
+  description: string;
   location: string;
   contactDetails: {
     phoneNumber: string;
@@ -64,6 +65,7 @@ export interface Restaurant {
   type: string;
   menu?: string[];
   tableCapacity: number;
+  tags?: string[];
   images?: [{ url: string; alt: string }];
 }
 

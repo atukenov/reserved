@@ -5,6 +5,10 @@ const RestaurantSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
   location: {
     type: String,
     required: true,
@@ -36,6 +40,7 @@ const RestaurantSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  tags: [{ type: String }],
   images: [
     {
       url: { type: String, required: true },
