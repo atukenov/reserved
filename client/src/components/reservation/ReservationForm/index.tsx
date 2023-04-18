@@ -18,6 +18,9 @@ import {
   Form,
   Button,
   ButtonContainer,
+  Submitted,
+  ThankYou,
+  Message,
 } from "./styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -31,6 +34,7 @@ import {
 import useForm from "../../../utils/useForm";
 import DatePicker from "../../common/DatePicker";
 import moment from "moment";
+import Input from "../../common/Input";
 
 const ReservationForm = () => {
   const location = useLocation();
@@ -48,20 +52,12 @@ const ReservationForm = () => {
     switch (step) {
       case 1:
         formData.password = "";
-        return (
-          <>
-            <DatePicker
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-            />
-          </>
-        );
+        return <></>;
       case 2:
         formData.lastname = "";
         return (
           <>
-            <input
+            <Input
               type="text"
               name="password"
               value={formData.password}
@@ -73,7 +69,7 @@ const ReservationForm = () => {
         formData.username = "";
         return (
           <>
-            <input
+            <Input
               type="text"
               name="lastname"
               value={formData.lastname}
@@ -84,7 +80,7 @@ const ReservationForm = () => {
       case 4:
         return (
           <>
-            <input
+            <Input
               type="text"
               name="username"
               value={formData.username}
@@ -93,7 +89,14 @@ const ReservationForm = () => {
           </>
         );
       case 5:
-        return "Submitted, please wait for response.";
+        return (
+          <Submitted>
+            <ThankYou>Thank you!</ThankYou>
+            <Message>
+              Your reservation <span>in process</span>, please wait!
+            </Message>
+          </Submitted>
+        );
     }
   };
 
@@ -103,6 +106,7 @@ const ReservationForm = () => {
   };
   const handleNext = (e: any) => {
     e.preventDefault();
+
     setStep((prev) => (prev < 5 ? prev + 1 : prev));
   };
 
@@ -110,20 +114,6 @@ const ReservationForm = () => {
     e.preventDefault();
     console.log(formData);
     setStep((prev) => (prev < 5 ? prev + 1 : prev));
-  };
-
-  const getFormatDate = (date: string) => {
-    const m = moment(date, "YYYY-MM-DD");
-    console.log(m);
-    return (
-      <>
-        <Number>{m.format("D")}</Number>
-        <Text>
-          <div>{m.format("MMM")}</div>
-          <div>{m.format("YYYY")}</div>
-        </Text>
-      </>
-    );
   };
 
   return (
@@ -179,37 +169,6 @@ const ReservationForm = () => {
               </Icon>
               <Status />
               <Title>Waiting</Title>
-            </Step>
-          </Steps>
-        </StepsContainer>
-        <StepsContainer>
-          <Steps>
-            <Step>
-              <Data>{formData.date && getFormatDate(formData.date)}</Data>
-            </Step>
-            <Step>
-              <Data>
-                <Number>{formData.password}</Number>
-                <Text></Text>
-              </Data>
-            </Step>
-            <Step>
-              <Data>
-                <Number>{formData.lastname}</Number>
-                <Text></Text>
-              </Data>
-            </Step>
-            <Step>
-              <Data>
-                <Number>{formData.username}</Number>
-                <Text></Text>
-              </Data>
-            </Step>
-            <Step>
-              <Data>
-                <Number></Number>
-                <Text></Text>
-              </Data>
             </Step>
           </Steps>
         </StepsContainer>

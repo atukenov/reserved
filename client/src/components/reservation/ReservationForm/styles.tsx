@@ -93,6 +93,9 @@ export const Data = styled.div`
 export const Number = styled.div`
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 25px;
+  &.name {
+    font-size: 18px;
+  }
 `;
 export const Text = styled.div`
   display: flex;
@@ -104,7 +107,12 @@ export const FormContainer = styled.div`
   margin-top: 30px;
 `;
 
-export const Form = styled.form``;
+export const Form = styled.form`
+  border: 1px solid gray;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px gray;
+`;
 export const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
@@ -122,5 +130,20 @@ export const Button = styled.button`
   &.back {
     background-color: green;
     border-color: green;
+  }
+`;
+
+export const Submitted = styled.div`
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+export const ThankYou = styled.h1``;
+export const Message = styled.p`
+  span {
+    color: green;
+    font-weight: 600;
   }
 `;
