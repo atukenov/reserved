@@ -104,6 +104,13 @@ export interface UserState extends State {
   user: User | null;
 }
 
+// Component Props
+
+export interface StepItem {
+  icon: React.ReactNode;
+  title: string;
+}
+
 //TODO update types.
 
 // Old props

@@ -1,20 +1,14 @@
 import React, { useState } from "react";
 
-import { Restaurant } from "../../../utils/types";
+import { Restaurant, StepItem } from "../../../utils/types";
 import { useLocation } from "react-router-dom";
 import {
   Container,
   Data,
   FormContainer,
-  Icon,
-  Status,
-  Step,
-  Steps,
   Number,
   Text,
   StepsContainer,
-  Title,
-  ProgressBar,
   Form,
   Button,
   ButtonContainer,
@@ -35,6 +29,30 @@ import useForm from "../../../utils/useForm";
 import DatePicker from "../../common/DatePicker";
 import moment from "moment";
 import Input from "../../common/Input";
+import Steps from "../../common/Steps";
+
+const items: StepItem[] = [
+  {
+    icon: <FontAwesomeIcon icon={faCalendar} size="2xl" />,
+    title: "Date",
+  },
+  {
+    icon: <FontAwesomeIcon icon={faUtensils} size="2xl" />,
+    title: "Dinners",
+  },
+  {
+    icon: <FontAwesomeIcon icon={faClock} size="2xl" />,
+    title: "Time",
+  },
+  {
+    icon: <FontAwesomeIcon icon={faUser} size="2xl" />,
+    title: "Date",
+  },
+  {
+    icon: <FontAwesomeIcon icon={faCheck} size="2xl" />,
+    title: "Date",
+  },
+];
 
 const ReservationForm = () => {
   const location = useLocation();
@@ -121,73 +139,25 @@ const ReservationForm = () => {
       <Container>
         <h2>{restaurant.restaurantName}</h2>
         <hr />
-        <StepsContainer>
-          <Steps>
-            <Step className={step > 1 ? "active" : step === 1 ? "current" : ""}>
-              <Icon>
-                <FontAwesomeIcon icon={faCalendar} size="2xl" />
-              </Icon>
-              <Status />
-              <Title>Date</Title>
-            </Step>
-            <ProgressBar
-              className={step > 1 ? "active" : step === 1 ? "current" : ""}
-            />
-            <Step className={step > 2 ? "active" : step === 2 ? "current" : ""}>
-              <Icon>
-                <FontAwesomeIcon icon={faUtensils} size="2xl" />
-              </Icon>
-              <Status />
-              <Title>Dinners</Title>
-            </Step>
-            <ProgressBar
-              className={step > 2 ? "active" : step === 2 ? "current" : ""}
-            />
-            <Step className={step > 3 ? "active" : step === 3 ? "current" : ""}>
-              <Icon>
-                <FontAwesomeIcon icon={faClock} size="2xl" />
-              </Icon>
-              <Status />
-              <Title>Time</Title>
-            </Step>
-            <ProgressBar
-              className={step > 3 ? "active" : step === 3 ? "current" : ""}
-            />
-            <Step className={step > 4 ? "active" : step === 4 ? "current" : ""}>
-              <Icon>
-                <FontAwesomeIcon icon={faUser} size="2xl" />
-              </Icon>
-              <Status />
-              <Title>Guest</Title>
-            </Step>
-            <ProgressBar
-              className={step > 4 ? "active" : step === 4 ? "current" : ""}
-            />
-            <Step className={step > 5 ? "active" : step === 5 ? "current" : ""}>
-              <Icon>
-                <FontAwesomeIcon icon={faCheck} size="2xl" />
-              </Icon>
-              <Status />
-              <Title>Waiting</Title>
-            </Step>
-          </Steps>
-        </StepsContainer>
-        <FormContainer>
-          <Form onSubmit={handleSubmit}>
-            {getForm()}
-            <ButtonContainer>
-              {step > 1 && step < 5 && (
-                <Button onClick={handleBack} className="back">
-                  Back
-                </Button>
-              )}
-              {step === 4 && <Button type="submit">Submit</Button>}
-              {step >= 1 && step < 4 && (
-                <Button onClick={handleNext}>Next</Button>
-              )}
-            </ButtonContainer>
-          </Form>
-        </FormContainer>
+        <Steps steps={items}>
+          <FormContainer>
+            <Form onSubmit={handleSubmit}>
+              {getForm()}
+              <ButtonContainer>
+                {step > 1 && step < 5 && (
+                  <Button onClick={handleBack} className="back">
+                    Back
+                  </Button>
+                )}
+                {step === 4 && <Button type="submit">Submit</Button>}
+                {step >= 1 && step < 4 && (
+                  <Button onClick={handleNext}>Next</Button>
+                )}
+              </ButtonContainer>
+            </Form>
+          </FormContainer>
+        </Steps>
+        <StepsContainer></StepsContainer>
       </Container>
     </>
   );
