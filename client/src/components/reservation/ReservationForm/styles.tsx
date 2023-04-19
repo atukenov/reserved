@@ -16,37 +16,83 @@ export const Container = styled.div`
     padding: 20px 120px 0 120px;
   }
 `;
-export const StepsContainer = styled.div``;
 
-export const Data = styled.div`
-  height: 40px;
+// Steps style
+
+export const Wrapper = styled.div`
+  max-width: 1200px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-evenly;
 `;
-export const Number = styled.div`
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 25px;
-  &.name {
-    font-size: 18px;
-  }
-`;
-export const Text = styled.div`
+
+export const Status = styled.div`
   display: flex;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border: 4px solid black;
+  align-items: center;
+  border-radius: 50%;
+`;
+
+export const Step = styled.div`
+  display: flex;
+  flex: 1 1 60px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
-export const FormContainer = styled.div`
-  margin-top: 30px;
+  width: 60px;
+  position: relative;
+  &.active {
+    color: green;
+    ${Status} {
+      background-color: green;
+      border-color: green;
+    }
+  }
+
+  &.current {
+    color: orange;
+    ${Status} {
+      border-color: orange;
+    }
+  }
 `;
 
-export const Form = styled.form`
-  border: 1px solid gray;
-  padding: 10px 20px;
-  border-radius: 10px;
-  box-shadow: 3px 3px 5px gray;
+export const ProgressBar = styled.div`
+  position: absolute;
+  z-index: -1;
+  height: 5px;
+  width: 100%;
+  background-color: black;
+  &.active {
+    color: green;
+    background-color: green;
+  }
+  &.current {
+    color: orange;
+    background-color: orange;
+  }
 `;
+
+export const Icon = styled.div`
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Title = styled.div`
+  height: 60px;
+  padding-top: 10px;
+  font-weight: 600;
+  width: 60px;
+  text-align: center;
+`;
+
+// Buttons
 export const ButtonContainer = styled.div`
   display: flex;
   gap: 10px;
@@ -55,6 +101,7 @@ export const ButtonContainer = styled.div`
   padding: 10px 0;
 `;
 export const Button = styled.button`
+  margin-top: 15px;
   font-size: 18px;
   padding: 3px 15px;
   color: white;
@@ -65,7 +112,16 @@ export const Button = styled.button`
     background-color: green;
     border-color: green;
   }
+  &:disabled {
+    background-color: #cccccc;
+    color: #666666;
+    border: 1px solid #999999;
+  }
 `;
+
+//Forms
+
+export const Form = styled.form``;
 
 export const Submitted = styled.div`
   display: flex;

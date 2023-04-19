@@ -21,6 +21,10 @@ const ReservationSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    reservationTime: {
+      type: String,
+      required: true,
+    },
     partySize: {
       type: Number,
       default: 1,
@@ -33,6 +37,14 @@ const ReservationSchema = new mongoose.Schema(
       type: String,
       enum: ["confirmed", "pending", "cancelled"],
       default: "pending",
+    },
+    guest: {
+      name: {
+        type: String,
+      },
+      phoneNumber: {
+        type: String,
+      },
     },
   },
   { timestamps: true }

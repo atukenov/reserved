@@ -86,10 +86,15 @@ export interface Reservation {
   _id: string;
   restaurantId: string;
   tableId: string;
-  reservationDate: Date;
+  reservationDate: string;
+  reservationTime: string;
   partySize: number;
   specialRequest: string;
-  status: Status;
+  status?: Status;
+  guest?: {
+    name: string;
+    phoneNumber: string;
+  };
 }
 
 // States
