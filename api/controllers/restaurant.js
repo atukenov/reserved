@@ -25,6 +25,10 @@ export const createRestaurant = async (req, res, next) => {
       .withMessage("Must be email format")
       .run(req);
     await check("type").notEmpty().withMessage("Type is required").run(req);
+    await check("tableCapacity")
+      .notEmpty()
+      .withMessage("Table Capacity is required")
+      .run(req);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

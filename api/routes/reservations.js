@@ -11,7 +11,7 @@ import { verifyGod, verifyUser } from "../utils/verifyToken.js";
 const router = express.Router();
 
 //CREATE
-router.post("/", verifyUser, createReservation);
+router.post("/", createReservation);
 //UPDATE
 router.put("/:id", verifyUser, updateReservation);
 //DELETE

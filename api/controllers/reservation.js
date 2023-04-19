@@ -4,28 +4,45 @@ import { createError } from "../utils/error.js";
 
 export const createReservation = async (req, res, next) => {
   try {
-    await check("userId").notEmpty().withMessage("User is required.").run(req);
     await check("restaurantId")
       .notEmpty()
       .withMessage("Restaurant is required")
       .run(req);
-    await check("tableId")
+    await check("reservationDate")
       .notEmpty()
-      .withMessage("Table must be choosen.")
+      .withMessage("Reservation Date is required")
+      .run(req);
+    await check("reservationTime")
+      .notEmpty()
+      .withMessage("Reservation Time is required")
       .run(req);
     await check("partySize")
       .notEmpty()
       .withMessage("Please specify how many people will attend the party.")
       .run(req);
+    await check("guest.name")
+      .notEmpty()
+      .withMessage("Guest Name is required.")
+      .run(req);
+    await check("guest.phoneNumber")
+      .notEmpty()
+      .withMessage("Guest Phone Number is required.")
+      .run(req);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(createError(400, errors.array()));
+      return next(createError(400, "Validation Error!"));
     }
   } catch (err) {
     return next(err);
   }
-  const newReservation = new Reservation(req.body);
+  const newReservation = new Reservation({
+    restaurantId: req.body.restaurantId,
+    reservationDate: req.body.reservationDate,
+    reservationTime: req.body.reservationTime,
+    partySize: req.body.partySize,
+    guest: req.body.guest,
+  });
   try {
     const savedReservation = await newReservation.save();
     res.status(200).json(savedReservation);

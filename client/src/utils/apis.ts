@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Authorization, Restaurant } from "./types";
+import { Authorization, Reservation, Restaurant } from "./types";
 
 let config = {
   headers: {
@@ -40,6 +40,22 @@ const _service = {
   },
   deleteRestaurant: async (restaurantId: string) => {
     return await api.delete("restaurants/" + restaurantId);
+  },
+  //Reservation API
+  getReservationById: async (reservationId: string) => {
+    return await api.get("reservations/" + reservationId);
+  },
+  getReservationsByUserId: async (userId: string) => {
+    return await api.get("reservations/user/" + userId);
+  },
+  createReservation: async (body: Reservation) => {
+    return await api.post("reservations", body);
+  },
+  updateReservation: async (body: Reservation) => {
+    return await api.put("reservations/" + body._id, body);
+  },
+  deleteReservation: async (reservationId: string) => {
+    return await api.delete("restaurants/" + reservationId);
   },
   //Menu API
   //Table API

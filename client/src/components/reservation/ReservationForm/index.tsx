@@ -30,6 +30,12 @@ import {
 import { Reservation, Restaurant, StepItem } from "../../../utils/types";
 import FormItem from "../../common/FormItem";
 import FormTimeSelect from "../../common/FormTimeSelect";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import { Spin } from "antd";
+import {
+  createReservation,
+  reservationSelector,
+} from "../../../slices/reservationSlice";
 
 const items: StepItem[] = [
   {
@@ -55,6 +61,8 @@ const items: StepItem[] = [
 ];
 
 const ReservationForm = () => {
+  const dispatch = useAppDispatch();
+  const { loading, reservation } = useAppSelector(reservationSelector);
   const location = useLocation();
   const restaurant = location.state as Restaurant;
   const [step, setStep] = useState(1);
@@ -66,7 +74,7 @@ const ReservationForm = () => {
     reservationTime: "",
     restaurantId: restaurant._id,
     specialRequest: "",
-    tableId: "1",
+    // tableId: "1",
     guest: {
       name: "",
       phoneNumber: "",
@@ -75,7 +83,7 @@ const ReservationForm = () => {
 
   const validation = Yup.object({
     restaurantId: Yup.string().required("What restaurant you want to reserve?"),
-    tableId: Yup.string().required("Did you choose table?"),
+    // tableId: Yup.string().required("Did you choose table?"),
     reservationDate: Yup.string().required("Please choose the date"),
     partySize: Yup.number()
       .min(1, "At least one person needed")
@@ -130,76 +138,79 @@ const ReservationForm = () => {
     </>,
     <>
       <ThankYou>Thank you for your reservation.</ThankYou>
+      {reservation && <Message>Reservation ID is {reservation._id}</Message>}
       <Message>Wait for the status udpate.</Message>
     </>,
   ];
 
   return (
     <>
-      <Container>
-        <h2>{restaurant.restaurantName}</h2>
-        <hr />
-        <Wrapper>
-          {items.map((item, index) => {
-            return (
-              <Step
-                key={index}
-                className={`${step === index + 1 ? "current" : ""} ${
-                  index + 1 < step ? "active" : ""
-                }`}
-              >
-                <Icon>{item.icon}</Icon>
-                <Status>
-                  {index < 4 && (
-                    <ProgressBar
-                      className={`${step === index + 1 ? "current" : ""} ${
-                        index + 1 < step ? "active" : ""
-                      }`}
-                    />
+      <Spin spinning={loading}>
+        <Container>
+          <h2>{restaurant.restaurantName}</h2>
+          <hr />
+          <Wrapper>
+            {items.map((item, index) => {
+              return (
+                <Step
+                  key={index}
+                  className={`${step === index + 1 ? "current" : ""} ${
+                    index + 1 < step ? "active" : ""
+                  }`}
+                >
+                  <Icon>{item.icon}</Icon>
+                  <Status>
+                    {index < 4 && (
+                      <ProgressBar
+                        className={`${step === index + 1 ? "current" : ""} ${
+                          index + 1 < step ? "active" : ""
+                        }`}
+                      />
+                    )}
+                  </Status>
+                  <Title>{item.title}</Title>
+                </Step>
+              );
+            })}
+          </Wrapper>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validation}
+            onSubmit={(values: Reservation) => {
+              setStep((prev) => prev + 1);
+              dispatch(createReservation(values));
+            }}
+            validateOnMount
+          >
+            {(props) => (
+              <Form>
+                {forms[step - 1]}
+                <ButtonContainer>
+                  {step > 1 && step < 5 && (
+                    <Button onClick={handleBack} className="back">
+                      Back
+                    </Button>
                   )}
-                </Status>
-                <Title>{item.title}</Title>
-              </Step>
-            );
-          })}
-        </Wrapper>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validation}
-          onSubmit={(values: Reservation) => {
-            setStep((prev) => prev + 1);
-            console.log(values);
-          }}
-          validateOnMount
-        >
-          {(props) => (
-            <Form>
-              {forms[step - 1]}
-              <ButtonContainer>
-                {step > 1 && step < 5 && (
-                  <Button onClick={handleBack} className="back">
-                    Back
-                  </Button>
-                )}
-                {step >= 1 && step < 4 && (
-                  <Button
-                    onClick={handleNext}
-                    disabled={getStatus(props.errors)}
-                  >
-                    Next
-                  </Button>
-                )}
-                {step === 4 && (
-                  <Button type="submit" disabled={getStatus(props.errors)}>
-                    Submit
-                  </Button>
-                )}
-              </ButtonContainer>
-            </Form>
-          )}
-        </Formik>
-        {/* <Form onSubmit={formik.handleSubmit}>{forms[step - 1]}</Form> */}
-      </Container>
+                  {step >= 1 && step < 4 && (
+                    <Button
+                      onClick={handleNext}
+                      disabled={getStatus(props.errors)}
+                    >
+                      Next
+                    </Button>
+                  )}
+                  {step === 4 && (
+                    <Button type="submit" disabled={getStatus(props.errors)}>
+                      Submit
+                    </Button>
+                  )}
+                </ButtonContainer>
+              </Form>
+            )}
+          </Formik>
+          {/* <Form onSubmit={formik.handleSubmit}>{forms[step - 1]}</Form> */}
+        </Container>
+      </Spin>
     </>
   );
 };

@@ -32,8 +32,15 @@ export interface alertProps {
   msg: string | null;
 }
 
-interface State {
+interface State extends Pagination {
   loading: boolean;
+}
+
+interface Pagination {
+  totalItem?: number;
+  pageSize?: number;
+  page?: number;
+  pages?: number;
 }
 
 // Data types
@@ -85,7 +92,7 @@ export interface Menu {
 export interface Reservation {
   _id: string;
   restaurantId: string;
-  tableId: string;
+  tableId?: string;
   reservationDate: string;
   reservationTime: string;
   partySize: number;
@@ -100,9 +107,12 @@ export interface Reservation {
 // States
 export interface RestaurantState extends State {
   restaurants?: Restaurant[];
-  restaurant: Restaurant | null;
-  totalItem: number;
-  pageSize?: number;
+  restaurant?: Restaurant | null;
+}
+
+export interface ReservationState extends State {
+  reservations?: Reservation[];
+  reservation?: Reservation | null;
 }
 
 export interface UserState extends State {

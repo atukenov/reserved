@@ -5,7 +5,6 @@ const ReservationSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true,
     },
     restaurantId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -15,7 +14,7 @@ const ReservationSchema = new mongoose.Schema(
     tableId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Table",
-      required: true,
+      // required: true,
     },
     reservationDate: {
       type: Date,
@@ -41,9 +40,11 @@ const ReservationSchema = new mongoose.Schema(
     guest: {
       name: {
         type: String,
+        required: true,
       },
       phoneNumber: {
         type: String,
+        required: true,
       },
     },
   },

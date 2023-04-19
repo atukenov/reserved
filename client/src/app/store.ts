@@ -4,6 +4,7 @@ import alertReducer from "../slices/alertSlice";
 import projectReducer from "../slices/projectSlice";
 import userReducer from "../slices/userSlice";
 import restaurantReducer from "../slices/restaurantSlice";
+import reservationReducer from "../slices/reservationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     project: projectReducer,
     user: userReducer,
     restaurant: restaurantReducer,
+    reservation: reservationReducer,
   },
 });
 
