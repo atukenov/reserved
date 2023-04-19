@@ -11,7 +11,7 @@ const token = localStorage.token;
 if (token) config.headers["x-auth-token"] = token;
 
 const api = axios.create({
-  baseURL: "http://localhost:8080/api/",
+  baseURL: "https://reserved-backend.herokuapp.com/api/",
   headers: config.headers,
 });
 
