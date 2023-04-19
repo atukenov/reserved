@@ -18,7 +18,7 @@ export const SvgIcon = ({ src, width, height, shadow }: SvgIconProps) => (
   <Image
     shadow={shadow}
     src={
-      src ? `/img/svg/${src}` : "https://source.unsplash.com/random/?abu+dhabi"
+      src ? `/img/svg/${src}` : "https://source.unsplash.com/random/?restaurant"
     }
     alt={src}
     width={width}

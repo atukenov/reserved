@@ -1,5 +1,5 @@
-import React, { ChangeEvent, FocusEvent, ReactNode } from "react";
-import { ErrorMessage, Field } from "formik";
+import React, { ReactNode } from "react";
+import { ErrorMessage } from "formik";
 import { CustomField, Wrapper, Label, CustomError } from "./styles";
 
 interface Props {

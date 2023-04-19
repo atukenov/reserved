@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Field, ErrorMessage } from "formik";
+import { Field } from "formik";
 
 export const Label = styled.label`
   font-size: 20px;

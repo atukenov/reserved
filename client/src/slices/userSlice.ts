@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { RootState } from "../app/store";
 import { Authorization, UserState } from "../utils/types";
 import { setAlert } from "./alertSlice";

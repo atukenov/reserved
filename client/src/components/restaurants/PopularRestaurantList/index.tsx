@@ -21,8 +21,8 @@ const PopularList = () => {
       <List>
         {restaurants?.map((restaurant, indx) => {
           return (
-            <ListItem>
-              <RestaurantCard key={indx} restaurant={restaurant} />
+            <ListItem key={indx}>
+              <RestaurantCard restaurant={restaurant} />
             </ListItem>
           );
         })}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Segmented, SegmentedProps } from "antd";
+import { Segmented } from "antd";
 import CreateRestaurantForm from "../../restaurants/RestaurantForm/CreateRestaurantForm";
 import UpdateRestaurantForm from "../../restaurants/RestaurantForm/UpdateRestaurantForm";
 import DeleteRestaurantForm from "../../restaurants/RestaurantForm/DeleteRestaurantForm";

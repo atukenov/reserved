@@ -2,15 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
-import {
-  Field,
-  Formik,
-  Form,
-  FormikHelpers,
-  FormikProps,
-  useFormik,
-  FormikErrors,
-} from "formik";
+import { Formik, Form, FormikErrors } from "formik";
 import * as Yup from "yup";
 
 import {
@@ -19,14 +11,13 @@ import {
   faClock,
   faUser,
   faUtensils,
-  faCheckDouble,
+  // faCheckDouble,
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
   Container,
   Button,
   ButtonContainer,
-  Submitted,
   ThankYou,
   Message,
   Wrapper,
@@ -38,7 +29,6 @@ import {
 } from "./styles";
 import { Reservation, Restaurant, StepItem } from "../../../utils/types";
 import FormItem from "../../common/FormItem";
-import CustomSelectTime from "../../common/FormTimeSelect";
 import FormTimeSelect from "../../common/FormTimeSelect";
 
 const items: StepItem[] = [

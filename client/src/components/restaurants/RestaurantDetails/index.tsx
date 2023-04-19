@@ -38,7 +38,9 @@ const RestaurantDetails = () => {
   return (
     <Spin spinning={restaurant ? false : true}>
       <Container>
-        <ImageContainer></ImageContainer>
+        <ImageContainer>
+          <SvgIcon width="100%" height="100%" />
+        </ImageContainer>
         <Details>
           <Restaurant>
             <Header>

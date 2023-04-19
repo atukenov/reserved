@@ -8,11 +8,10 @@ import { Button, Checkbox, Form, Input } from "antd";
 import Container from "../../common/Container";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { login, userSelector } from "../../../slices/userSlice";
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const dispatch = useAppDispatch();
   const { user } = useAppSelector(userSelector);
   const navigate = useNavigate();
@@ -57,7 +56,7 @@ const LoginForm = () => {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
-          <a className="login-form-forgot" href="">
+          <a className="login-form-forgot" href="forgot.com">
             Forgot password
           </a>
         </Form.Item>
@@ -70,7 +69,7 @@ const LoginForm = () => {
           >
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          Or <a href="register.com">register now!</a>
         </Form.Item>
       </Form>
     </Container>
