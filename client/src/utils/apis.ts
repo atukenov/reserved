@@ -45,8 +45,14 @@ const _service = {
   getReservationById: async (reservationId: string) => {
     return await api.get("reservations/" + reservationId);
   },
+  getAllReservations: async () => {
+    return await api.get("reservations");
+  },
   getReservationsByUserId: async (userId: string) => {
     return await api.get("reservations/user/" + userId);
+  },
+  getReservationsByRestaurantId: async (restaurantId: string) => {
+    return await api.get("reservations/restaurant/" + restaurantId);
   },
   createReservation: async (body: Reservation) => {
     return await api.post("reservations", body);

@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Form, Input, Button, InputNumber } from "antd";
-import { useAppDispatch } from "../../../app/hooks";
-import { createRestaurant } from "../../../slices/restaurantSlice";
+import { Form, Input, Button, InputNumber, Select } from "antd";
+import { useAppDispatch, useAppSelector } from "../../../app/hooks";
+import {
+  getAllRestaurants,
+  restaurantSelector,
+  updateRestaurant,
+} from "../../../slices/restaurantSlice";
 import { Restaurant } from "../../../utils/types";
-import { useForm } from "antd/lib/form/Form";
+import data from "../../../assets/content/Tags.json";
 
 const Card = styled.div`
   box-shadow: 0px 0px 4px gray;
@@ -12,12 +16,27 @@ const Card = styled.div`
   margin-top: 10px;
 `;
 
-const CreateRestaurantForm = () => {
+const UpdateRestaurantForm = () => {
   const dispatch = useAppDispatch();
-  const [form] = useForm();
+  const { restaurants } = useAppSelector(restaurantSelector);
+  const [restaurant, setRestaurant] = useState<Restaurant>();
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    dispatch(getAllRestaurants());
+  }, [dispatch]);
+
+  useEffect(() => {
+    form.setFieldsValue({ ...restaurant });
+  }, [restaurant, form]);
+
+  const handleSelection = (value: string) => {
+    // form.resetFields();
+    setRestaurant(restaurants?.find((p) => p._id === value));
+  };
 
   const onFinish = (values: Restaurant) => {
-    dispatch(createRestaurant(values));
+    dispatch(updateRestaurant(values));
   };
 
   return (
@@ -30,12 +49,42 @@ const CreateRestaurantForm = () => {
         style={{ maxWidth: 600 }}
         onFinish={onFinish}
       >
+        <Form.Item label="Restaurant" name="_id">
+          <Select
+            showSearch
+            placeholder="Search to Select"
+            onChange={handleSelection}
+            filterOption={(input, option) =>
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+            }
+            filterSort={(optionA, optionB) =>
+              (optionA?.label ?? "")
+                .toLowerCase()
+                .localeCompare((optionB?.label ?? "").toLowerCase())
+            }
+            options={restaurants?.map((item) => {
+              return {
+                value: item._id,
+                label: item.restaurantName,
+              };
+            })}
+          />
+        </Form.Item>
         <Form.Item
           label="Restaurant Name"
           name="restaurantName"
           rules={[{ required: true, message: "Please enter restaurant name." }]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          label="Description"
+          name="description"
+          rules={[
+            { required: true, message: "Please enter restaurant description." },
+          ]}
+        >
+          <Input.TextArea />
         </Form.Item>
         <Form.Item
           label="Location"
@@ -47,27 +96,14 @@ const CreateRestaurantForm = () => {
         <Form.Item
           label="Phone number"
           name={["contactDetails", "phoneNumber"]}
-          rules={[
-            { required: true, message: "Please enter Phone Number." },
-            {
-              min: 12,
-              max: 12,
-              message: "Phone number must be 12 length",
-            },
-          ]}
+          rules={[{ required: true, message: "Please enter Phone Number." }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           label="Email"
           name={["contactDetails", "email"]}
-          rules={[
-            { required: true, message: "Please enter email." },
-            {
-              type: "email",
-              message: "Must have email format.",
-            },
-          ]}
+          rules={[{ required: true, message: "Please enter email." }]}
         >
           <Input type="email" />
         </Form.Item>
@@ -86,13 +122,18 @@ const CreateRestaurantForm = () => {
         >
           <Input />
         </Form.Item>
-
+        <Form.Item label="Tags for Restaurant" name="tags">
+          <Select
+            mode="tags"
+            placeholder="Tags for restaurants"
+            options={data.tags}
+          />
+        </Form.Item>
         <Form.Item
           label="Table Capacity"
           name="tableCapacity"
           rules={[
             { required: true, message: "Please enter number of tables." },
-            { type: "number", message: "Must be a number." },
           ]}
         >
           <InputNumber min={1} />
@@ -107,7 +148,7 @@ const CreateRestaurantForm = () => {
         </Form.Item> */}
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Button
+            Update
           </Button>
         </Form.Item>
       </Form>
@@ -115,4 +156,4 @@ const CreateRestaurantForm = () => {
   );
 };
 
-export default CreateRestaurantForm;
+export default UpdateRestaurantForm;

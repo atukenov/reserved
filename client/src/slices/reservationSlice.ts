@@ -25,11 +25,41 @@ export const getReservationById = createAsyncThunk(
   }
 );
 
+export const getAllReservations = createAsyncThunk(
+  "reservations/getAll",
+  async (_, thunkAPI) => {
+    try {
+      const response = await _service.getAllReservations();
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+      thunkAPI.dispatch(setAlert({ alertType: "error", msg: e.message }));
+      throw error;
+    }
+  }
+);
+
 export const getReservationsByUserId = createAsyncThunk(
   "reservations/getByUserId",
   async (userId: string, thunkAPI) => {
     try {
       const response = await _service.getReservationsByUserId(userId);
+      return response.data;
+    } catch (error) {
+      const e = error as Error;
+      thunkAPI.dispatch(setAlert({ alertType: "error", msg: e.message }));
+      throw error;
+    }
+  }
+);
+
+export const getReservationsByRestaurantId = createAsyncThunk(
+  "reservations/getByRestaurantId",
+  async (restaurantId: string, thunkAPI) => {
+    try {
+      const response = await _service.getReservationsByRestaurantId(
+        restaurantId
+      );
       return response.data;
     } catch (error) {
       const e = error as Error;
@@ -119,6 +149,16 @@ export const reservationSlice = createSlice({
       .addCase(getReservationById.rejected, (state) => {
         state.loading = false;
       })
+      .addCase(getAllReservations.fulfilled, (state, action) => {
+        state.reservation = action.payload;
+        state.loading = false;
+      })
+      .addCase(getAllReservations.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getAllReservations.rejected, (state) => {
+        state.loading = false;
+      })
       .addCase(getReservationsByUserId.fulfilled, (state, action) => {
         state.reservations = action.payload;
         state.loading = false;
@@ -127,6 +167,16 @@ export const reservationSlice = createSlice({
         state.loading = true;
       })
       .addCase(getReservationsByUserId.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(getReservationsByRestaurantId.fulfilled, (state, action) => {
+        state.reservations = action.payload;
+        state.loading = false;
+      })
+      .addCase(getReservationsByRestaurantId.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getReservationsByRestaurantId.rejected, (state) => {
         state.loading = false;
       })
       .addCase(createReservation.fulfilled, (state, action) => {

@@ -12,8 +12,8 @@ import { logout } from "../../../slices/userSlice";
 
 const items: MenuProps["items"] = [
   {
-    label: <Link to="reservations">Reservations</Link>,
-    key: "reservations",
+    label: <Link to="crud">CRUD</Link>,
+    key: "crud",
     icon: <AppstoreOutlined />,
   },
   {
@@ -28,7 +28,7 @@ const items: MenuProps["items"] = [
   },
 ];
 
-const AdminMenu = () => {
+const GodMenu = () => {
   const [current, setCurrent] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -51,4 +51,4 @@ const AdminMenu = () => {
   );
 };
 
-export default AdminMenu;
+export default GodMenu;

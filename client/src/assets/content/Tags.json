@@ -1,0 +1,14 @@
+{
+  "tags": [
+    { "value": "coffee", "label": "coffee" },
+    { "value": "restaurant", "label": "restaurant" },
+    { "value": "alcohol", "label": "alcohol" },
+    { "value": "food", "label": "food" },
+    { "value": "coffeeshop", "label": "coffeeshop" },
+    { "value": "latte", "label": "latte" },
+    { "value": "espresso", "label": "espresso" },
+    { "value": "dining", "label": "dining" },
+    { "value": "citycenter", "label": "citycenter" },
+    { "value": "art", "label": "art" }
+  ]
+}

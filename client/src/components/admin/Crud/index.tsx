@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Segmented } from "antd";
-import CreateRestaurantForm from "../../restaurants/RestaurantForm/CreateRestaurantForm";
-import UpdateRestaurantForm from "../../restaurants/RestaurantForm/UpdateRestaurantForm";
-import DeleteRestaurantForm from "../../restaurants/RestaurantForm/DeleteRestaurantForm";
+import CreateRestaurantForm from "../Restaurant/CreateRestaurantForm";
+import UpdateRestaurantForm from "../Restaurant/UpdateRestaurantForm";
+import DeleteRestaurantForm from "../Restaurant/DeleteRestaurantForm";
 
 interface crudProps {
   crudOption: string | number;

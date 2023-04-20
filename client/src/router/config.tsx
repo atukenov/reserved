@@ -13,6 +13,8 @@ import Crud from "../components/admin/Crud";
 import Settings from "../components/admin/Settings";
 import PrivateRoutes from "./PrivateRoutes";
 import ReservationForm from "../components/reservation/ReservationForm";
+import { Roles } from "../utils/types";
+import Reservations from "../components/admin/Reservation/Reservations";
 
 const routes = [
   {
@@ -44,18 +46,30 @@ const routes = [
       {
         path: "dashboard",
         element: (
-          <PrivateRoutes>
+          <PrivateRoutes roles={[Roles.God, Roles.Admin]}>
             <Dashboard />
           </PrivateRoutes>
         ),
         children: [
           {
             path: "crud",
-            element: <Crud />,
+            element: (
+              <PrivateRoutes roles={[Roles.God]}>
+                <Crud />
+              </PrivateRoutes>
+            ),
           },
           {
             path: "settings",
             element: <Settings />,
+          },
+          {
+            path: "reservations",
+            element: (
+              <PrivateRoutes roles={[Roles.Admin]}>
+                <Reservations />
+              </PrivateRoutes>
+            ),
           },
         ],
       },

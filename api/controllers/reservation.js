@@ -83,6 +83,24 @@ export const getReservation = async (req, res, next) => {
     next(err);
   }
 };
+export const getReservationsByUser = async (req, res, next) => {
+  try {
+    const reservations = await Reservation.find({ userId: req.params.userId });
+    res.status(200).json(reservations);
+  } catch (err) {
+    next(err);
+  }
+};
+export const getReservationsByRestaurant = async (req, res, next) => {
+  try {
+    const reservations = await Reservation.find({
+      restaurantId: req.params.restaurantId,
+    });
+    res.status(200).json(reservations);
+  } catch (err) {
+    next(err);
+  }
+};
 export const getReservations = async (req, res, next) => {
   try {
     const reservations = await Reservation.find();

@@ -4,10 +4,12 @@ import {
   createReservation,
   deleteReservation,
   getReservation,
+  getReservationsByRestaurant,
+  getReservationsByUser,
   getReservations,
   updateReservation,
 } from "../controllers/reservation.js";
-import { verifyGod, verifyUser } from "../utils/verifyToken.js";
+import { verifyAdmin, verifyGod, verifyUser } from "../utils/verifyToken.js";
 const router = express.Router();
 
 //CREATE
@@ -18,7 +20,15 @@ router.put("/:id", verifyUser, updateReservation);
 router.delete("/:id", verifyUser, deleteReservation);
 //GET
 router.get("/:id", verifyUser, getReservation);
+//GET
+router.get("/user/:userId", getReservationsByUser);
+//GET
+router.get(
+  "/restaurant/:restaurantId",
+  verifyAdmin,
+  getReservationsByRestaurant
+);
 //GET ALL
-router.get("/", verifyUser, getReservations);
+router.get("/", verifyGod, getReservations);
 
 export default router;

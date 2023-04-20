@@ -48,8 +48,9 @@ export interface User {
   _id: string;
   username: string;
   email: string;
-  role: string;
+  role: Roles;
   phoneNumber: string;
+  adminRestaurantId?: string;
   reservationHistory: string[];
 }
 

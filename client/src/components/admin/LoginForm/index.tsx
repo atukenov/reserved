@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import { login, userSelector } from "../../../slices/userSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Roles } from "../../../utils/types";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +18,9 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) navigate("/admin/dashboard", { replace: true });
+    if (user) {
+      navigate("/admin/dashboard", { replace: true });
+    }
   }, [user, navigate]);
 
   const onFinish = (values: any) => {
