@@ -17,8 +17,6 @@ export const Container = styled.div`
   }
 `;
 
-// Steps style
-
 export const Wrapper = styled.div`
   max-width: 1200px;
   display: flex;
@@ -58,6 +56,20 @@ export const Step = styled.div`
       border-color: orange;
     }
   }
+
+  &.cancelled {
+    color: red;
+    ${Status} {
+      border-color: red;
+    }
+  }
+
+  &.confirmed {
+    color: green;
+    ${Status} {
+      border-color: green;
+    }
+  }
 `;
 
 export const ProgressBar = styled.div`
@@ -90,53 +102,4 @@ export const Title = styled.div`
   font-weight: 600;
   width: 60px;
   text-align: center;
-`;
-
-// Buttons
-export const ButtonContainer = styled.div`
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-`;
-export const Button = styled.button`
-  margin-top: 15px;
-  font-size: 18px;
-  padding: 3px 15px;
-  color: white;
-  background-color: orange;
-  border: 1px solid orange;
-  border-radius: 5px;
-  &.back {
-    background-color: green;
-    border-color: green;
-  }
-  &:disabled {
-    background-color: #cccccc;
-    color: #666666;
-    border: 1px solid #999999;
-  }
-`;
-
-//Forms
-
-export const Form = styled.form``;
-
-export const Submitted = styled.div`
-  display: flex;
-  padding: 10px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-export const ThankYou = styled.h1``;
-export const Message = styled.p`
-  span {
-    color: green;
-  }
-  .link {
-    color: orange;
-    font-weight: 600;
-  }
 `;

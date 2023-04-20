@@ -19,7 +19,7 @@ router.put("/:id", verifyUser, updateReservation);
 //DELETE
 router.delete("/:id", verifyUser, deleteReservation);
 //GET
-router.get("/:id", verifyUser, getReservation);
+router.get("/:id", getReservation);
 //GET
 router.get("/user/:userId", getReservationsByUser);
 //GET

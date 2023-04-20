@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import { Formik, Form, FormikErrors } from "formik";
@@ -138,7 +138,13 @@ const ReservationForm = () => {
     </>,
     <>
       <ThankYou>Thank you for your reservation.</ThankYou>
-      {reservation && <Message>Reservation ID is {reservation._id}</Message>}
+      {reservation && (
+        <Link to={reservation._id}>
+          <Message>
+            Reservation ID is <span className="link">{reservation._id}</span>
+          </Message>
+        </Link>
+      )}
       <Message>Wait for the status udpate.</Message>
     </>,
   ];
