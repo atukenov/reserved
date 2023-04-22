@@ -16,6 +16,7 @@ import ReservationForm from "../components/reservation/ReservationForm";
 import { Roles } from "../utils/types";
 import Reservations from "../components/admin/Reservation/Reservations";
 import ReservationDetails from "../components/reservation/ReservationDetails";
+import Mapping from "../components/common/Mapping";
 
 const routes = [
   {
@@ -33,6 +34,10 @@ const routes = [
       {
         path: "reservation",
         element: <ReservationForm />,
+      },
+      {
+        path: "map",
+        element: <Mapping />,
       },
       {
         path: "reservation/:reservationId",
