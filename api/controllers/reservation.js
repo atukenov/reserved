@@ -42,6 +42,7 @@ export const createReservation = async (req, res, next) => {
     reservationTime: req.body.reservationTime,
     partySize: req.body.partySize,
     guest: req.body.guest,
+    specialRequest: req.body.specialRequest,
   });
   try {
     const savedReservation = await newReservation.save();
