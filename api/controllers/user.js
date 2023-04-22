@@ -22,10 +22,16 @@ export const register = async (req, res, next) => {
       .isLength({ min: 6 })
       .withMessage("Password must be at least 6 characters")
       .run(req);
+    await check("role").notEmpty().withMessage("Role is required").run(req);
+    await check("phoneNumber")
+      .notEmpty()
+      .withMessage("Phone number is required")
+      .run(req);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(createError(400, errors.array()));
+      console.log(errors.array());
+      return next(createError(400, "Validation Error!"));
     }
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
@@ -34,6 +40,8 @@ export const register = async (req, res, next) => {
       email: req.body.email,
       password: hash,
       phoneNumber: req.body.phoneNumber,
+      role: req.body.role,
+      adminRestaurantId: req.body.adminRestaurantId,
     });
     await newUser.save();
     res.status(201).json("User has been created!");

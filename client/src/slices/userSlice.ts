@@ -1,14 +1,32 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { RootState } from "../app/store";
-import { Authorization, UserState } from "../utils/types";
+import { Authorization, User, UserState } from "../utils/types";
 import { setAlert } from "./alertSlice";
 import _service from "../utils/apis";
 
 const initialState: UserState = {
   user: null,
+  users: [],
   loading: true,
 };
+
+export const createUser = createAsyncThunk(
+  "user/create",
+  async (body: User, thunkAPI) => {
+    try {
+      const response = await _service.createUser(body);
+      return response.data;
+    } catch (error) {
+      const e = error as AxiosError;
+      if (!e.response) throw e;
+      thunkAPI.dispatch(
+        setAlert({ alertType: "error", msg: e.response.data.message })
+      );
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
+  }
+);
 
 export const login = createAsyncThunk(
   "user/login",
@@ -67,6 +85,16 @@ export const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(login.rejected, (state) => {
+        state.loading = false;
+      })
+      .addCase(createUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.loading = false;
+      })
+      .addCase(createUser.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createUser.rejected, (state) => {
         state.loading = false;
       })
       .addCase(loadUser.fulfilled, (state, action) => {

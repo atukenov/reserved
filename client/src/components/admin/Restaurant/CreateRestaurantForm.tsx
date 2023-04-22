@@ -5,7 +5,7 @@ import { useAppDispatch } from "../../../app/hooks";
 import { createRestaurant } from "../../../slices/restaurantSlice";
 import { Restaurant } from "../../../utils/types";
 import { useForm } from "antd/lib/form/Form";
-import data from "../../../assets/content/Tags.json";
+import data from "../../../assets/content/Data.json";
 
 const Card = styled.div`
   box-shadow: 0px 0px 4px gray;

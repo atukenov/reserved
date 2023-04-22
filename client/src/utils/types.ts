@@ -51,7 +51,7 @@ export interface User {
   role: Roles;
   phoneNumber: string;
   adminRestaurantId?: string;
-  reservationHistory: string[];
+  reservationHistory?: string[];
 }
 
 export interface Authorization {
@@ -118,6 +118,7 @@ export interface ReservationState extends State {
 
 export interface UserState extends State {
   user: User | null;
+  users?: User[];
 }
 
 // Component Props

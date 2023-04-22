@@ -10,5 +10,10 @@
     { "value": "dining", "label": "dining" },
     { "value": "citycenter", "label": "citycenter" },
     { "value": "art", "label": "art" }
+  ],
+  "roles": [
+    { "value": "admin", "label": "Admin" },
+    { "value": "user", "label": "User" },
+    { "value": "Moderator", "label": "Moderator" }
   ]
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Authorization, Reservation, Restaurant } from "./types";
+import { Authorization, Reservation, Restaurant, User } from "./types";
 
 let config = {
   headers: {
@@ -24,6 +24,9 @@ const _service = {
   },
   loadUser: async () => {
     return await api.get("/users/load");
+  },
+  createUser: async (body: User) => {
+    return await api.post("/users/register", body);
   },
   //Restaurant API
   getRestaurantById: async (restaurantId: string) => {
@@ -65,7 +68,6 @@ const _service = {
   },
   //Menu API
   //Table API
-  //User API
 };
 
 export default _service;

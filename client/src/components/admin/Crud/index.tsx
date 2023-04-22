@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Segmented } from "antd";
+
 import CreateRestaurantForm from "../Restaurant/CreateRestaurantForm";
 import UpdateRestaurantForm from "../Restaurant/UpdateRestaurantForm";
 import DeleteRestaurantForm from "../Restaurant/DeleteRestaurantForm";
+
+import CreateUserForm from "../User/CreateUserForm";
 
 interface crudProps {
   crudOption: string | number;
@@ -16,7 +19,7 @@ const initialValues: crudProps = {
 
 const Forms = {
   CreateRestaurant: <CreateRestaurantForm />,
-  CreateMenu: <CreateRestaurantForm />,
+  CreateUser: <CreateUserForm />,
   CreateTable: <CreateRestaurantForm />,
   UpdateRestaurant: <UpdateRestaurantForm />,
   DeleteRestaurant: <DeleteRestaurantForm />,
@@ -50,7 +53,7 @@ const Crud = () => {
         <>
           <Segmented
             block
-            options={["Restaurant", "Menu", "Table"]}
+            options={["Restaurant", "User", "Table"]}
             value={values.type}
             onChange={(value) => setValues({ ...values, type: value })}
           />
