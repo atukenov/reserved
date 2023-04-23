@@ -11,7 +11,7 @@ interface MapProps {
 
 const Mapping = () => {
   const numRows = 12;
-  const numCols = 6;
+  const numCols = 12;
   const [mapData, setMapData] = useState<string[][]>(
     Array.from({ length: numRows }, (_, i) =>
       Array.from({ length: numCols }, (_, j) => `${i + 1}-${j + 1}`)
@@ -33,20 +33,19 @@ const Mapping = () => {
     <Map>
       <div className="map">
         {mapData.map((row, i) => {
-          const cells = row.map((cellData, j) => {
-            return (
-              <div
-                key={`${i}-${j}`}
-                className="cell"
-                onClick={() => handleCellClick(i, j)}
-              >
-                {cellData}
-              </div>
-            );
-          });
           return (
-            <div key={i} className="row">
-              {cells}
+            <div className="row" key={i}>
+              {row.map((cellData, j) => {
+                return (
+                  <div
+                    key={`${i}-${j}`}
+                    className="cell"
+                    onClick={() => handleCellClick(i, j)}
+                  >
+                    {cellData}
+                  </div>
+                );
+              })}
             </div>
           );
         })}
