@@ -37,7 +37,7 @@ const routes = [
       },
       {
         path: "map",
-        element: <Mapping />,
+        element: <Mapping mode="rect" />,
       },
       {
         path: "reservation/:reservationId",
