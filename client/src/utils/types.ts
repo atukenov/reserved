@@ -75,6 +75,7 @@ export interface Restaurant {
   tableCapacity: number;
   tags?: string[];
   images?: [{ url: string; alt: string }];
+  tables?: [{ tableNumber: string; times: string[] }];
 }
 
 export interface Menu {
