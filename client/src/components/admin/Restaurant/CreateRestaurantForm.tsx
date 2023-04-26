@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Form, Input, Button, InputNumber, Select } from "antd";
+import { Form, Input, Button, InputNumber, Select, Space } from "antd";
 import { useAppDispatch } from "../../../app/hooks";
 import { createRestaurant } from "../../../slices/restaurantSlice";
 import { Restaurant } from "../../../utils/types";
 import { useForm } from "antd/lib/form/Form";
 import data from "../../../assets/content/Data.json";
+import TableForm from "./TableForm";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 const Card = styled.div`
   box-shadow: 0px 0px 4px gray;
@@ -121,6 +123,42 @@ const CreateRestaurantForm = () => {
             </div>
           </Upload>
         </Form.Item> */}
+        <Form.Item label="Tables">
+          <Form.List name="tables">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Space
+                    key={key}
+                    style={{ display: "flex", marginBottom: 8 }}
+                    align="baseline"
+                  >
+                    <Form.Item
+                      {...restField}
+                      name={[name, "tableNumber"]}
+                      rules={[
+                        { required: true, message: "Include table number" },
+                      ]}
+                    >
+                      <Input placeholder="Table Number" />
+                    </Form.Item>
+                    <MinusCircleOutlined onClick={() => remove(name)} />
+                  </Space>
+                ))}
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    block
+                    icon={<PlusOutlined />}
+                  >
+                    Add table
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Create

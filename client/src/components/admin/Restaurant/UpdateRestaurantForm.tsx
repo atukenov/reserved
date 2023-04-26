@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Form, Input, Button, InputNumber, Select } from "antd";
+import { Form, Input, Button, InputNumber, Select, Space } from "antd";
 import { useAppDispatch, useAppSelector } from "../../../app/hooks";
 import {
   getAllRestaurants,
@@ -9,6 +9,7 @@ import {
 } from "../../../slices/restaurantSlice";
 import { Restaurant } from "../../../utils/types";
 import data from "../../../assets/content/Data.json";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 const Card = styled.div`
   box-shadow: 0px 0px 4px gray;
@@ -146,6 +147,42 @@ const UpdateRestaurantForm = () => {
             </div>
           </Upload>
         </Form.Item> */}
+        <Form.Item label="Tables">
+          <Form.List name="tables">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Space
+                    key={key}
+                    style={{ display: "flex", marginBottom: 8 }}
+                    align="baseline"
+                  >
+                    <Form.Item
+                      {...restField}
+                      name={[name, "tableNumber"]}
+                      rules={[
+                        { required: true, message: "Include table number" },
+                      ]}
+                    >
+                      <Input placeholder="Table Number" />
+                    </Form.Item>
+                    <MinusCircleOutlined onClick={() => remove(name)} />
+                  </Space>
+                ))}
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => add()}
+                    block
+                    icon={<PlusOutlined />}
+                  >
+                    Add table
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
+        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Update
