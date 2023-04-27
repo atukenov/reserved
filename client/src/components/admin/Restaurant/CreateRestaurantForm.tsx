@@ -6,7 +6,6 @@ import { createRestaurant } from "../../../slices/restaurantSlice";
 import { Restaurant } from "../../../utils/types";
 import { useForm } from "antd/lib/form/Form";
 import data from "../../../assets/content/Data.json";
-import TableForm from "./TableForm";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
 const Card = styled.div`
