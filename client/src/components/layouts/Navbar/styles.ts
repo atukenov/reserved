@@ -81,8 +81,12 @@ export const DropDown = styled("div")`
   }
   li {
     border-bottom: 1px solid green;
+    color: white;
     &:hover {
       color: red;
+    }
+    a {
+      color: white;
     }
   }
 

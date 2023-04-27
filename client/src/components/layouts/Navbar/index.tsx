@@ -9,6 +9,7 @@ import {
   Logo,
   Nav,
 } from "./styles";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState("closed");
@@ -41,6 +42,9 @@ const Navbar = () => {
       </Container>
       <DropDown className={`${open}`}>
         <ul>
+          <li>
+            <Link to="/admin">Admin Log In</Link>
+          </li>
           <li>Need Reservation?</li>
           <li>Learn More</li>
         </ul>
