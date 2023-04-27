@@ -33,6 +33,17 @@ export const List = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  @media ${device.laptop} {
+    &::-webkit-scrollbar {
+      display: block;
+    }
+  }
+  @media ${device.desktop} {
+    &::-webkit-scrollbar {
+      display: block;
+    }
+  }
 `;
 export const ListItem = styled.div`
   width: 240px;
