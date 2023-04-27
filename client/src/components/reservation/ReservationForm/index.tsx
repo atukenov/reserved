@@ -7,10 +7,10 @@ import * as Yup from "yup";
 
 import {
   faCalendar,
+  faChair,
   faCheck,
   faClock,
   faUser,
-  faUtensils,
   // faCheckDouble,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -43,12 +43,12 @@ const items: StepItem[] = [
     title: "Date",
   },
   {
-    icon: <FontAwesomeIcon icon={faUtensils} size="2xl" />,
-    title: "Dinners",
-  },
-  {
     icon: <FontAwesomeIcon icon={faClock} size="2xl" />,
     title: "Time",
+  },
+  {
+    icon: <FontAwesomeIcon icon={faChair} size="2xl" />,
+    title: "Tables",
   },
   {
     icon: <FontAwesomeIcon icon={faUser} size="2xl" />,
@@ -112,11 +112,12 @@ const ReservationForm = () => {
       case 1:
         return !!errors.reservationDate;
       case 2:
-        return !!errors.partySize;
-      case 3:
         return !!errors.reservationTime;
+
+      case 3:
+        return false;
       case 4:
-        return !!errors.guest;
+        return !!errors.guest || !!errors.partySize;
       default:
         return false;
     }
@@ -129,11 +130,12 @@ const ReservationForm = () => {
       type="date"
       min={moment().format("YYYY-MM-DD")}
     />,
-    <FormItem label="Number of person" name="partySize" type="number" />,
     <FormTimeSelect label="Time" name="reservationTime" />,
+    "tables",
     <>
       <FormItem label="Name" name="guest.name" type="text" />
       <FormItem label="Phone number" name="guest.phoneNumber" type="text" />
+      <FormItem label="Number of person" name="partySize" type="number" />
       <FormItem label="Special Request" name="specialRequest" type="textarea" />
     </>,
     <>

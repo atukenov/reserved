@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChild,
@@ -17,11 +17,15 @@ import {
   ListItem,
   Sign,
 } from "./styles";
+import { Form } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
   const [adult, setAdult] = useState(0);
   const [child, setChild] = useState(0);
   const [open, setOpen] = useState("closed");
+  const [inputText, setInputText] = useState("");
+  const navigate = useNavigate();
 
   const decrement = (who: string) => {
     if (who === "adult") setAdult((prev) => (prev > 0 ? prev - 1 : 0));
@@ -36,14 +40,26 @@ const SearchBar = () => {
     setOpen((prev) => (prev === "closed" ? "open" : "closed"));
   };
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputText(e.target.value);
+  };
+
+  const handleSearch = () => {
+    navigate("restaurants", { state: { restaurantName: inputText } });
+  };
+
   return (
     <Container>
       <Wrapper>
         <Icon>
           <FontAwesomeIcon icon={faUtensils} size="xl" />
         </Icon>
-        <Input placeholder="Where are you planning to eat?" />
-        <Capacity onClick={handleOpen}>
+        <Input
+          placeholder="Where are you planning to eat?"
+          value={inputText}
+          onChange={handleChange}
+        />
+        {/* <Capacity onClick={handleOpen}>
           <Icon>
             <FontAwesomeIcon icon={faPerson} size="xl" />
           </Icon>
@@ -52,8 +68,8 @@ const SearchBar = () => {
             <FontAwesomeIcon icon={faChild} size="sm" />
           </Icon>
           <span>{child}</span>
-        </Capacity>
-        <Counter className={`${open}`}>
+        </Capacity> */}
+        {/* <Counter className={`${open}`}>
           <List>
             <ListItem>
               <Icon>
@@ -72,8 +88,8 @@ const SearchBar = () => {
               <Sign onClick={() => increment("child")}>+</Sign>
             </ListItem>
           </List>
-        </Counter>
-        <Button>Search</Button>
+        </Counter> */}
+        <Button onClick={handleSearch}>Search</Button>
       </Wrapper>
     </Container>
   );
