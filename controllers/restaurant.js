@@ -75,14 +75,18 @@ export const getRestaurant = async (req, res, next) => {
 };
 export const getRestaurants = async (req, res, next) => {
   //PAGINATION
-  let page = parseInt(req.query.page) || 1;
-  let limit = parseInt(req.query.limit) || 5;
-
-  //FILTERING
+  const { page = 1, limit = 10 } = req.query;
 
   try {
-    const restaurants = await Restaurant.find();
-    res.status(200).json(restaurants);
+    const restaurants = await Restaurant.find({ ...req.query })
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .sort({ createdAt: -1 });
+    const count = await Restaurant.countDocuments();
+    res.status(200).json({
+      restaurants,
+      totalPages: Math.ceil(count / limit),
+    });
   } catch (err) {
     next(err);
   }
