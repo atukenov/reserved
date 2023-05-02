@@ -74,6 +74,12 @@ export const getRestaurant = async (req, res, next) => {
   }
 };
 export const getRestaurants = async (req, res, next) => {
+  //PAGINATION
+  let page = parseInt(req.query.page) || 1;
+  let limit = parseInt(req.query.limit) || 5;
+
+  //FILTERING
+
   try {
     const restaurants = await Restaurant.find();
     res.status(200).json(restaurants);
