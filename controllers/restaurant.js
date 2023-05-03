@@ -74,14 +74,26 @@ export const getRestaurant = async (req, res, next) => {
   }
 };
 export const getRestaurants = async (req, res, next) => {
-  //PAGINATION
-  const { page = 1, limit = 10 } = req.query;
-
   try {
-    const restaurants = await Restaurant.find({ ...req.query })
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
-      .sort({ createdAt: -1 });
+    //PAGINATION & FILTERING
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = parseInt(req.query.page) * limit || 0;
+    const filter = {};
+    const search = {};
+
+    if (req.query.filter) {
+      filter.type = req.query.filter;
+    }
+
+    if (req.query.search) {
+      search.title = { $regex: req.query.search, $options: "i" };
+    }
+
+    const restaurants = await Restaurant.find(filter)
+      .where(search)
+      .limit(limit)
+      .skip(skip);
+
     const count = await Restaurant.countDocuments();
     res.status(200).json({
       restaurants,
