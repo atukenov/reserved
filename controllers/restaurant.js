@@ -76,8 +76,8 @@ export const getRestaurant = async (req, res, next) => {
 export const getRestaurants = async (req, res, next) => {
   try {
     //PAGINATION & FILTERING
-    const limit = parseInt(req.query.limit) || 10;
-    const skip = parseInt(req.query.page) * limit || 0;
+    const limit = parseInt(req.query.limit) || 3;
+    const skip = (parseInt(req.query.page) - 1) * limit || 0;
     const filter = {};
     const search = {};
 
@@ -86,9 +86,8 @@ export const getRestaurants = async (req, res, next) => {
     }
 
     if (req.query.search) {
-      search.title = { $regex: req.query.search, $options: "i" };
+      search.restaurantName = { $regex: req.query.search, $options: "i" };
     }
-
     const restaurants = await Restaurant.find(filter)
       .where(search)
       .limit(limit)
