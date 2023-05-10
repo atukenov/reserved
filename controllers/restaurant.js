@@ -75,8 +75,29 @@ export const getRestaurant = async (req, res, next) => {
 };
 export const getRestaurants = async (req, res, next) => {
   try {
-    const restaurants = await Restaurant.find();
-    res.status(200).json(restaurants);
+    //PAGINATION & FILTERING
+    const limit = parseInt(req.query.limit) || 3;
+    const skip = (parseInt(req.query.page) - 1) * limit || 0;
+    const filter = {};
+    const search = {};
+
+    if (req.query.filter) {
+      filter.type = req.query.filter;
+    }
+
+    if (req.query.search) {
+      search.restaurantName = { $regex: req.query.search, $options: "i" };
+    }
+    const restaurants = await Restaurant.find(filter)
+      .where(search)
+      .limit(limit)
+      .skip(skip);
+
+    const count = await Restaurant.countDocuments();
+    res.status(200).json({
+      restaurants,
+      totalPages: Math.ceil(count / limit),
+    });
   } catch (err) {
     next(err);
   }
