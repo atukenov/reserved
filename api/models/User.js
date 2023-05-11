@@ -24,10 +24,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    adminRestaurantId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Restaurant",
-    },
     reservationHistory: [
       {
         type: mongoose.Schema.Types.ObjectId,

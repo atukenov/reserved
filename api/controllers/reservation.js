@@ -4,46 +4,28 @@ import { createError } from "../utils/error.js";
 
 export const createReservation = async (req, res, next) => {
   try {
+    await check("userId").notEmpty().withMessage("User is required.").run(req);
     await check("restaurantId")
       .notEmpty()
       .withMessage("Restaurant is required")
       .run(req);
-    await check("reservationDate")
+    await check("tableId")
       .notEmpty()
-      .withMessage("Reservation Date is required")
-      .run(req);
-    await check("reservationTime")
-      .notEmpty()
-      .withMessage("Reservation Time is required")
+      .withMessage("Table must be choosen.")
       .run(req);
     await check("partySize")
       .notEmpty()
       .withMessage("Please specify how many people will attend the party.")
       .run(req);
-    await check("guest.name")
-      .notEmpty()
-      .withMessage("Guest Name is required.")
-      .run(req);
-    await check("guest.phoneNumber")
-      .notEmpty()
-      .withMessage("Guest Phone Number is required.")
-      .run(req);
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return next(createError(400, "Validation Error!"));
+      return next(createError(400, errors.array()));
     }
   } catch (err) {
     return next(err);
   }
-  const newReservation = new Reservation({
-    restaurantId: req.body.restaurantId,
-    reservationDate: req.body.reservationDate,
-    reservationTime: req.body.reservationTime,
-    partySize: req.body.partySize,
-    guest: req.body.guest,
-    specialRequest: req.body.specialRequest,
-  });
+  const newReservation = new Reservation(req.body);
   try {
     const savedReservation = await newReservation.save();
     res.status(200).json(savedReservation);
@@ -80,24 +62,6 @@ export const getReservation = async (req, res, next) => {
   try {
     const reservation = await Reservation.findById(req.params.id);
     res.status(200).json(reservation);
-  } catch (err) {
-    next(err);
-  }
-};
-export const getReservationsByUser = async (req, res, next) => {
-  try {
-    const reservations = await Reservation.find({ userId: req.params.userId });
-    res.status(200).json(reservations);
-  } catch (err) {
-    next(err);
-  }
-};
-export const getReservationsByRestaurant = async (req, res, next) => {
-  try {
-    const reservations = await Reservation.find({
-      restaurantId: req.params.restaurantId,
-    });
-    res.status(200).json(reservations);
   } catch (err) {
     next(err);
   }

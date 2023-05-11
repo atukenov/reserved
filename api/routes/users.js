@@ -23,7 +23,7 @@ const router = express.Router();
 // });
 
 //CREATE
-router.post("/register", verifyGod, register);
+router.post("/register", register);
 //LOGIN
 router.post("/login", login);
 //UPDATE

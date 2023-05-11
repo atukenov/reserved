@@ -5,7 +5,6 @@ import mongoose from "mongoose";
 import usersRoute from "./routes/users.js";
 import tablesRoute from "./routes/tables.js";
 import restaurantsRoute from "./routes/restaurants.js";
-import reservationsRoute from "./routes/reservations.js";
 import cors from "cors";
 
 const app = express();
@@ -28,7 +27,6 @@ app.use(cors());
 app.use("/api/tables", tablesRoute);
 app.use("/api/restaurants", restaurantsRoute);
 app.use("/api/users", usersRoute);
-app.use("/api/reservations", reservationsRoute);
 
 app.use((err, req, res, next) => {
   const errStatus = err.status || 500;
@@ -41,7 +39,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(8080, () => {
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
   connect();
   console.log("🧩 Connected to server!");
 });
