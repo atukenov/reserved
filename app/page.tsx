@@ -1,13 +1,7 @@
-import Restaurant from "../models/Restaurant";
-import connectDB from "../utils/connectDB";
 import Header from "./components/Header";
 import RestaurantCard from "./components/RestaurantCard";
 
-const fetchRestaurants = async () => {
-  await connectDB();
-};
-
-const Home = () => {
+export default function Home() {
   return (
     <main>
       <Header />
@@ -16,6 +10,4 @@ const Home = () => {
       </div>
     </main>
   );
-};
-
-export default Home;
+}
