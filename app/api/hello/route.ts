@@ -1,4 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import Location from "@/models/Location";
+import { connectDB } from "@/utils/connectDB";
 import { NextResponse } from "next/server";
 
 type Data = {
@@ -6,5 +8,7 @@ type Data = {
 };
 
 export const GET = async () => {
-  return NextResponse.json("hello");
+  await connectDB();
+  const locations = await Location.find();
+  return NextResponse.json(locations);
 };

@@ -1,10 +1,5 @@
+import { PRICE } from "@/utils/types";
 import { Schema, model, models } from "mongoose";
-
-export enum PRICE {
-  CHEAP = "CHEAP",
-  REGULAR = "REGULAR",
-  EXPENSIVE = "EXPENSIVE",
-}
 
 const RestaurantSchema = new Schema(
   {
