@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-enum PRICE {
+export enum PRICE {
   CHEAP = "CHEAP",
   REGULAR = "REGULAR",
   EXPENSIVE = "EXPENSIVE",

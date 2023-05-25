@@ -1,15 +1,21 @@
+import Restaurant from "../models/Restaurant";
+import connectDB from "../utils/connectDB";
 import Header from "./components/Header";
 import RestaurantCard from "./components/RestaurantCard";
 
-export default function Home() {
+const fetchRestaurants = async () => {
+  await connectDB();
+};
+
+const Home = () => {
   return (
     <main>
       <Header />
-      {/* CARDS */}
       <div className="py-3 px-36 mt-10 flex flex-wrap justify-center">
         <RestaurantCard />
       </div>
-      {/* CARDS */}
     </main>
   );
-}
+};
+
+export default Home;
