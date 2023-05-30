@@ -9,6 +9,7 @@ import Reviews from "./components/Reviews";
 import ReservationCard from "./components/ReservationCard";
 import Restaurant from "@/models/Restaurant";
 import { ReviewType } from "@/utils/types";
+import { notFound } from "next/navigation";
 
 interface RestaurantType {
   _id: number;
@@ -25,7 +26,7 @@ const fetchRestaurantBySlug = async (slug: string): Promise<RestaurantType> => {
     "_id name images description slug reviews"
   ).populate("reviews");
   if (!restaurant) {
-    throw new Error();
+    notFound();
   }
   return restaurant;
 };
