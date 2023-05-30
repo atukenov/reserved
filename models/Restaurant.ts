@@ -1,5 +1,6 @@
 import { PRICE } from "@/utils/types";
 import { Schema, model, models } from "mongoose";
+import Review from "./Review";
 
 const RestaurantSchema = new Schema(
   {
@@ -11,12 +12,12 @@ const RestaurantSchema = new Schema(
     close_time: String,
     slug: { type: String, unique: true },
     price: { type: String, enum: PRICE },
-    items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
     location_id: { type: Schema.Types.ObjectId, ref: "Location" },
     cuisine_id: { type: Schema.Types.ObjectId, ref: "Cuisine" },
+    reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
+    items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
   },
   { timestamps: true }
 );
-
 const Restaurant = models.Restaurant || model("Restaurant", RestaurantSchema);
 export default Restaurant;
