@@ -1,7 +1,9 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import * as jose from "jose";
+import { setCookie } from "cookies-next";
+
 import { connectDB } from "../../../../utils/connectDB";
 import User from "@/models/User";
 
@@ -11,7 +13,7 @@ export const GET = async () => {
   return NextResponse.json({ data: "Get User api" });
 };
 
-export const POST = async (req: Request) => {
+export const POST = async (req: NextRequest, res: NextResponse) => {
   const { email, password } = await req.json();
 
   const errors: string[] = [];
@@ -61,6 +63,8 @@ export const POST = async (req: Request) => {
     .setProtectedHeader({ alg })
     .setExpirationTime("24h")
     .sign(secret);
+
+  setCookie("jwt", token, { req, res, maxAge: 60 * 6 * 24 });
 
   return NextResponse.json({ token });
 };
