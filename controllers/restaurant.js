@@ -88,11 +88,11 @@ export const getRestaurants = async (req, res, next) => {
     if (req.query.search) {
       search.restaurantName = { $regex: req.query.search, $options: "i" };
     }
-    const restaurants = await Restaurant.find(filter)
-      .where(search)
-      .limit(limit)
-      .skip(skip);
-
+    // const restaurants = await Restaurant.find(filter)
+    //   .where(search)
+    //   .limit(limit)
+    //   .skip(skip);
+    const restaurants = await Restaurant.find();
     const count = await Restaurant.countDocuments();
     res.status(200).json({
       restaurants,

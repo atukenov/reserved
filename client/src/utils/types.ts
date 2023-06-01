@@ -108,7 +108,7 @@ export interface Reservation {
 
 // States
 export interface RestaurantState extends State {
-  restaurants?: Restaurant[];
+  restaurants: Restaurant[];
   restaurant?: Restaurant | null;
 }
 

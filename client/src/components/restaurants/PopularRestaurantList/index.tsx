@@ -19,7 +19,7 @@ const PopularList = () => {
     <Container>
       <Title>Popular restaurants</Title>
       <List>
-        {restaurants?.map((restaurant, indx) => {
+        {restaurants?.forEach((restaurant, indx) => {
           return (
             <ListItem key={indx}>
               <RestaurantCard restaurant={restaurant} />
