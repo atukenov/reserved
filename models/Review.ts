@@ -3,8 +3,8 @@ import { Schema, model, models } from "mongoose";
 
 const ReviewSchema = new Schema(
   {
-    first_name: String,
-    last_name: String,
+    firstName: String,
+    lastName: String,
     text: String,
     rating: Number,
     restaurant_id: {

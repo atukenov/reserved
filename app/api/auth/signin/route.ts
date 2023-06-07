@@ -6,6 +6,7 @@ import { setCookie } from "cookies-next";
 
 import { connectDB } from "../../../../utils/connectDB";
 import User from "@/models/User";
+import { UserType } from "@/utils/types";
 
 connectDB();
 
@@ -40,15 +41,15 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
     return NextResponse.json({ errorMessage: errors[0] }, { status: 400 });
   }
 
-  const userWithEmail = await User.findOne({ email });
+  const user: UserType | null = await User.findOne({ email });
 
-  if (!userWithEmail)
+  if (!user)
     return NextResponse.json(
       { errorMessage: "Email or password is invalid" },
       { status: 401 }
     );
 
-  const isMatch = await bcrypt.compare(password, userWithEmail.password);
+  const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch)
     return NextResponse.json(
@@ -59,12 +60,18 @@ export const POST = async (req: NextRequest, res: NextResponse) => {
   const alg = "HS256";
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-  const token = await new jose.SignJWT({ email: userWithEmail.email })
+  const token = await new jose.SignJWT({ email: user.email })
     .setProtectedHeader({ alg })
     .setExpirationTime("24h")
     .sign(secret);
 
-  setCookie("jwt", token, { req, res, maxAge: 60 * 6 * 24 });
+  setCookie("jwt", token, { maxAge: 60 * 6 * 24 });
 
-  return NextResponse.json({ token });
+  return NextResponse.json({
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    phone: user.phone,
+    city: user.city,
+  });
 };

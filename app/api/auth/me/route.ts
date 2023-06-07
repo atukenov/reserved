@@ -24,5 +24,5 @@ export const GET = async (req: NextRequest) => {
 
   const user = await User.findOne({ email: payload.email }).select("-password");
 
-  return NextResponse.json({ me: user });
+  return NextResponse.json(user);
 };

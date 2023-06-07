@@ -18,12 +18,14 @@ interface RestaurantType {
   description: string;
   slug: string;
   reviews: ReviewType[];
+  open_time: string;
+  close_time: string;
 }
 
 const fetchRestaurantBySlug = async (slug: string): Promise<RestaurantType> => {
   const restaurant = await Restaurant.findOne(
     { slug },
-    "_id name images description slug reviews"
+    "_id name images description slug reviews open_time close_time"
   ).populate("reviews");
   if (!restaurant) {
     notFound();
@@ -44,7 +46,10 @@ const RestaurantDetails = async ({ params }: { params: { slug: string } }) => {
         <Reviews reviews={restaurant.reviews} />
       </div>
       <div className="w-[27%] relative text-reg">
-        <ReservationCard />
+        <ReservationCard
+          openTime={restaurant.open_time}
+          closeTime={restaurant.close_time}
+        />
       </div>
     </>
   );

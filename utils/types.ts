@@ -30,8 +30,8 @@ export interface RestaurantType {
 
 export interface UserType {
   _id: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   city: string;
   password: string;
   email: string;
@@ -40,8 +40,8 @@ export interface UserType {
 
 export interface ReviewType {
   _id: string;
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   text: string;
   rating: number;
   restaurant: RestaurantType;

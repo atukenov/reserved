@@ -4,6 +4,8 @@ import bcrypt from "bcrypt";
 import * as jose from "jose";
 import { connectDB } from "../../../../utils/connectDB";
 import User from "@/models/User";
+import { cookies } from "next/headers";
+import { setCookie } from "cookies-next";
 
 connectDB();
 
@@ -72,8 +74,8 @@ export const POST = async (req: Request) => {
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = new User({
-    first_name: firstName,
-    last_name: lastName,
+    firstName: firstName,
+    lastName: lastName,
     email: email,
     city: city,
     phone: phone,
@@ -88,7 +90,15 @@ export const POST = async (req: Request) => {
     .setExpirationTime("24h")
     .sign(secret);
 
+  setCookie("jwt", token, { maxAge: 60 * 6 * 24 });
+
   await newUser.save();
 
-  return NextResponse.json({ token });
+  return NextResponse.json({
+    firstName: newUser.firstName,
+    lastName: newUser.lastName,
+    email: newUser.email,
+    phone: newUser.phone,
+    city: newUser.city,
+  });
 };
