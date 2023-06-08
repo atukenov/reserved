@@ -16,6 +16,8 @@ const RestaurantSchema = new Schema(
     cuisine_id: { type: Schema.Types.ObjectId, ref: "Cuisine" },
     reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
     items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
+    bookings: [{ type: Schema.Types.ObjectId, ref: "Booking" }],
+    tables: [{ type: Schema.Types.ObjectId, ref: "Table" }],
   },
   { timestamps: true }
 );

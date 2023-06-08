@@ -6,6 +6,7 @@ const TableSchema = new Schema(
   {
     seats: Number,
     restaurant: { type: Schema.Types.ObjectId, ref: "Restaurant" },
+    bookings: [{ type: Schema.Types.ObjectId, ref: "Booking" }],
   },
   { timestamps: true }
 );
