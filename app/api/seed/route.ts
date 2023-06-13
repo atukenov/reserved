@@ -8,6 +8,7 @@ import Cuisine from "@/models/Cuisine";
 import { PRICE } from "@/utils/types";
 import Review from "@/models/Review";
 import User from "@/models/User";
+import Table from "@/models/Table";
 
 type Data = {
   name: string;
@@ -16,15 +17,15 @@ type Data = {
 export const GET = async () => {
   await connectDB();
 
-  //   await prisma.table.deleteMany();
+  await Table.deleteMany();
   await Review.deleteMany();
   await Item.deleteMany();
   await Restaurant.deleteMany();
-  await Location.deleteMany().then(() => {
-    console.log("Deleted");
-  });
+  await Location.deleteMany();
   await Cuisine.deleteMany();
   await User.deleteMany();
+
+  console.log("Deleted items..");
 
   await Location.insertMany([
     { name: "ottawa" },
@@ -525,6 +526,8 @@ export const GET = async () => {
       cuisine_id: italianCuisineId,
     },
   ]);
+
+  console.log("Restaurants inserted..");
 
   const restaurants = await Restaurant.find();
 
@@ -1055,6 +1058,8 @@ export const GET = async () => {
     await restaurant.save();
   });
 
+  console.log("Menu inserted..");
+
   const userLaith = await User.create({
     firstName: "Laith",
     lastName: "Harb",
@@ -1090,6 +1095,8 @@ export const GET = async () => {
     password: "$2b$10$I8xkU2nQ8EAHuVOdbMy9YO/.rSU3584Y.H4LrpIujGNDtmny9FnLu",
     phone: "1112223333",
   });
+
+  console.log("Users created..");
 
   const newReviews = [
     {
@@ -1310,8 +1317,6 @@ export const GET = async () => {
     },
   ];
 
-  // await Review.insertMany(newReviews);
-
   newReviews.forEach(async (review) => {
     const added = new Review(review);
     await added.save();
@@ -1320,21 +1325,31 @@ export const GET = async () => {
     await restaurant.save();
   });
 
-  //   await prisma.table.createMany({
-  //     data: [
-  //       {
-  //         restaurant_id: vivaanId,
-  //         seats: 4,
-  //       },
-  //       {
-  //         restaurant_id: vivaanId,
-  //         seats: 4,
-  //       },
-  //       {
-  //         restaurant_id: vivaanId,
-  //         seats: 2,
-  //       },
-  //     ],
-  //   });
+  console.log("Reviews added..");
+
+  const newTables = [
+    {
+      restaurant_id: vivaanId,
+      seats: 4,
+    },
+    {
+      restaurant_id: vivaanId,
+      seats: 4,
+    },
+    {
+      restaurant_id: vivaanId,
+      seats: 2,
+    },
+  ];
+
+  newTables.forEach(async (table) => {
+    const added = new Table(table);
+    await added.save();
+    const restaurant = await Restaurant.findById(table.restaurant_id);
+    restaurant.tables.push(added.id);
+    await restaurant.save();
+  });
+  console.log("Tables added..");
+
   return NextResponse.json("Completed");
 };
