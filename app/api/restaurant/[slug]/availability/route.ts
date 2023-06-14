@@ -5,6 +5,8 @@ import { connectDB } from "@/utils/connectDB";
 import { times } from "@/data";
 import Booking from "@/models/Booking";
 import Restaurant from "@/models/Restaurant";
+import Table from "@/models/Table";
+import { findAvailableTables } from "@/services/restaurant/findAvailableTables";
 
 connectDB();
 
@@ -20,66 +22,21 @@ export const GET = async (req: NextRequest, { params }: any) => {
       { status: 400 }
     );
 
-  const searchTimes = times.find((t) => {
-    return t.time === time;
-  })?.searchTimes;
-
-  if (!searchTimes)
-    return NextResponse.json(
-      { errorMessage: "Invalid data provided 2" },
-      { status: 400 }
-    );
-
-  const bookings = await Booking.find({
-    booking_time: {
-      $gte: new Date(`${day}T${searchTimes[0]}`),
-      $lte: new Date(`${day}T${searchTimes[searchTimes.length - 1]}`),
-    },
-  })
-    .select("number_of_people booking_time tables")
-    .populate("tables");
-
-  const bookingTablesObj: {
-    [key: string]: { [key: number]: true };
-  } = {};
-
-  bookings.forEach((booking) => {
-    bookingTablesObj[booking.booking_time.toISOString()] =
-      booking.tables.reduce((obj: any, table: any) => {
-        return {
-          ...obj,
-          [table._id]: true,
-        };
-      }, {});
-  });
-
   const restaurant = await Restaurant.findOne({ slug })
     .select("tables open_time close_time")
-    .populate("tables");
+    .populate({ path: "tables", model: Table });
 
   if (!restaurant)
     return NextResponse.json(
-      { errorMessage: "Invalid data provided 2" },
+      { errorMessage: "Invalid data provided" },
       { status: 400 }
     );
 
-  const tables = restaurant.tables;
-  const searchTimesWithTables = searchTimes.map((searchTime) => {
-    return {
-      date: new Date(`${day}T${searchTime}`),
-      time: searchTime,
-      tables,
-    };
-  });
+  const res = await findAvailableTables({ day, time, restaurant });
 
-  searchTimesWithTables.forEach((t) => {
-    t.tables = t.tables.filter((table: any) => {
-      if (bookingTablesObj[t.date.toISOString()]) {
-        if (bookingTablesObj[t.date.toISOString()][table._id]) return false;
-      }
-      return true;
-    });
-  });
+  if (res instanceof NextResponse) return res.json();
+
+  const searchTimesWithTables = res;
 
   const availabilities = searchTimesWithTables
     .map((t) => {
@@ -101,7 +58,5 @@ export const GET = async (req: NextRequest, { params }: any) => {
       return timeIsAfterOpeningHour && timeIsBeforeClosingHour;
     });
 
-  return NextResponse.json({
-    availabilities,
-  });
+  return NextResponse.json(availabilities);
 };

@@ -2,16 +2,21 @@ import { connectDB } from "@/utils/connectDB";
 import Header from "./components/Header";
 import RestaurantCard from "./components/RestaurantCard";
 import Restaurant from "@/models/Restaurant";
-import { RestaurantCardType, ReviewType } from "@/utils/types";
 import Location from "@/models/Location";
+import Cuisine from "@/models/Cuisine";
 import Review from "@/models/Review";
+import { RestaurantCardType } from "@/utils/types";
+
+connectDB();
 
 const fetchRestaurants = async (): Promise<RestaurantCardType[]> => {
-  await connectDB();
-
   const restaurants: RestaurantCardType[] = await Restaurant.find()
     .select("name main_image price slug cuisine_id location_id reviews")
-    .populate("location_id cuisine_id reviews");
+    .populate([
+      { path: "location_id", model: Location },
+      { path: "cuisine_id", model: Cuisine },
+      { path: "reviews", model: Review },
+    ]);
 
   return restaurants;
 };

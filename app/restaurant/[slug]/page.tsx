@@ -10,6 +10,7 @@ import ReservationCard from "./components/ReservationCard";
 import Restaurant from "@/models/Restaurant";
 import { ReviewType } from "@/utils/types";
 import { notFound } from "next/navigation";
+import { connectDB } from "@/utils/connectDB";
 
 interface RestaurantType {
   _id: number;
