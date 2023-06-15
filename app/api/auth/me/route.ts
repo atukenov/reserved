@@ -6,9 +6,8 @@ import * as jose from "jose";
 import { connectDB } from "../../../../utils/connectDB";
 import User from "@/models/User";
 
-connectDB();
-
 export const GET = async (req: NextRequest) => {
+  await connectDB();
   const bearerToken = req.headers.get("authorization") as string;
 
   const token = bearerToken.split(" ")[1];

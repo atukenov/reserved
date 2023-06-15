@@ -8,13 +8,13 @@ import { connectDB } from "../../../../utils/connectDB";
 import User from "@/models/User";
 import { UserType } from "@/utils/types";
 
-connectDB();
-
 export const GET = async () => {
   return NextResponse.json({ data: "Get User api" });
 };
 
 export const POST = async (req: NextRequest, res: NextResponse) => {
+  await connectDB();
+
   const { email, password } = await req.json();
 
   const errors: string[] = [];

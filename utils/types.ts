@@ -26,6 +26,7 @@ export interface RestaurantType {
   price: PRICE;
   location_id: LocationType;
   cuisine_id: CuisineType;
+  reviews: ReviewType[];
 }
 
 export interface UserType {

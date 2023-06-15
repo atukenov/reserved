@@ -4,11 +4,23 @@ import Form from "./components/Form";
 import { connectDB } from "@/utils/connectDB";
 import Restaurant from "@/models/Restaurant";
 import { notFound } from "next/navigation";
+import axios from "axios";
+
+// const fetchRestaurantBySlug = async (slug: string) => {
+//   const restaurant = await Restaurant.findOne({ slug });
+//   if (!restaurant) notFound();
+//   return restaurant;
+// };
 
 const fetchRestaurantBySlug = async (slug: string) => {
-  const restaurant = await Restaurant.findOne({ slug });
-  if (!restaurant) notFound();
-  return restaurant;
+  try {
+    const res = await axios.get("http://localhost:3000/api/restaurant", {
+      params: { slug },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const Reservation = async ({

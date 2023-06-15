@@ -4,7 +4,7 @@ import RestaurantCard from "./components/RestaurantCard";
 import Restaurant from "@/models/Restaurant";
 import Location from "@/models/Location";
 import Cuisine from "@/models/Cuisine";
-import { PRICE } from "@/utils/types";
+import { PRICE, RestaurantCardType } from "@/utils/types";
 
 interface SearchParams {
   city?: string;
@@ -59,9 +59,12 @@ export default async function Search({
         <div className="w-5/6">
           {restaurants.length ? (
             <>
-              {restaurants.map((restaurant) => {
+              {restaurants.map((restaurant: any) => {
                 return (
-                  <RestaurantCard key={restaurant.id} restaurant={restaurant} />
+                  <RestaurantCard
+                    key={restaurant._id}
+                    restaurant={restaurant}
+                  />
                 );
               })}
             </>

@@ -6,9 +6,9 @@ import { connectDB } from "./utils/connectDB";
 
 import User from "@/models/User";
 
-connectDB();
-
 export const middleware = async (req: NextRequest, res: NextResponse) => {
+  await connectDB();
+
   const bearerToken = req.headers.get("authorization");
 
   if (!bearerToken) {

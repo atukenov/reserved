@@ -7,12 +7,11 @@ import User from "@/models/User";
 import { cookies } from "next/headers";
 import { setCookie } from "cookies-next";
 
-connectDB();
-
 export const GET = async () => {
   return NextResponse.json({ data: "Get User api" });
 };
 export const POST = async (req: Request) => {
+  await connectDB();
   const { firstName, lastName, email, city, password, phone } =
     await req.json();
 

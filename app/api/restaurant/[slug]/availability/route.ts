@@ -8,9 +8,8 @@ import Restaurant from "@/models/Restaurant";
 import Table from "@/models/Table";
 import { findAvailableTables } from "@/services/restaurant/findAvailableTables";
 
-connectDB();
-
 export const GET = async (req: NextRequest, { params }: any) => {
+  await connectDB();
   const { slug } = params;
   const day = req.nextUrl.searchParams.get("day");
   const time = req.nextUrl.searchParams.get("time");
